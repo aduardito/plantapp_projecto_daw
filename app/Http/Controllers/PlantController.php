@@ -1,0 +1,145 @@
+<?php
+    
+namespace App\Http\Controllers;
+    
+use App\Models\Plant;
+
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+    
+class PlantController extends Controller
+{ 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+         $this->middleware('permission:plant-list|plant-create|plant-edit|plant-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:plant-create', ['only' => ['create','store']]);
+         $this->middleware('permission:plant-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:plant-delete', ['only' => ['destroy']]);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(): View
+    {
+        $num_plant = 10;
+        $user_id = Auth::id();
+        if ( User::isAdmin($user_id) === true ){
+            $plants = Plant::latest()->paginate($num_plant);
+        }
+        else {
+            $plants = Plant::where('user_id', '=',$user_id)->paginate($num_plant);
+            
+        }
+        return view('plants.index',compact('plants'))->with('i', (request()->input('page', 1) - 1) * $num_plant);
+    }
+    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(): View
+    {
+        return view('plants.create');
+    }
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        request()->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+    
+        $file_name = $request->file('image_url')->getClientOriginalName();
+        $path = $request->file('image_url')->store('public/images');
+        $path_ = explode('public',$path);
+
+        $plant = new Plant;
+        $plant->name = $request->input('name');
+        $plant->description = $request->input('description');
+        $plant->image_url = 'storage' . $path_[1];
+        $plant->user_id = Auth::id();
+
+        $plant->save();
+
+        return redirect()->route('plants.index')
+                        ->with('success','Nueva planta creada correctamente.');
+    }
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Plant  $plant
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Plant $plant): View
+    {
+        return view('plants.show',compact('plant'));
+    }
+    
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Plant  $plant
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Plant $plant): View
+    {
+        return view('plant.edit',compact('plant'));
+    }
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Plant  $plant
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Product $plant): RedirectResponse
+    {
+         request()->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+    
+        $plant->update($request->all());
+    
+        return redirect()->route('plants.index')
+                        ->with('success','Planta actualizada correctamente');
+    }
+    
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Plant  $plant
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Plant $plant): RedirectResponse
+    {
+        // $plant->active =false;
+        // $plant->save();
+    
+        $plant->delete();
+
+        return redirect()->route('plants.index')
+                        ->with('success','Planta borrada correctamente');
+    }
+}
