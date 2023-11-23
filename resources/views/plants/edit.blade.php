@@ -30,8 +30,6 @@
     	@csrf
         @method('PUT')
 
-
-
         <div class="row">
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
@@ -52,8 +50,8 @@
 		        </div>
 		    </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-		            <button type="submit" class="btn btn-primary">Guardar</button>
-                    <button type="reset" class="btn btn-primary">Borrar datos</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="reset" class="btn btn-primary">Borrar datos</button>
 		    </div>
 		</div>
     </form>

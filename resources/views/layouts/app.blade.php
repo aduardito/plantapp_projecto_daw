@@ -65,10 +65,10 @@
 
                             @role('User')
                                 <li class="nav-item">
-                                    <li><a class="nav-link" href="{{ route('plants.index') }}">Busca plantas</a></li>
+                                    <a class="nav-link" href="{{ route('plants.index') }}">Mis plantas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('plants.index') }}">Mis plantas</a>
+                                    <li><a class="nav-link" href="{{ route('transactions.search') }}">Busca plantas</a></li>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('roles.index') }}">Favoritas</a>

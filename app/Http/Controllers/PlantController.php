@@ -113,7 +113,7 @@ class PlantController extends Controller
      * @param  \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $plant): RedirectResponse
+    public function update(Request $request, Plant $plant): RedirectResponse
     {
          request()->validate([
             'name' => 'required',
@@ -142,4 +142,6 @@ class PlantController extends Controller
         return redirect()->route('plants.index')
                         ->with('success','Planta borrada correctamente');
     }
+
+    
 }

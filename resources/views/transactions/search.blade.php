@@ -37,19 +37,16 @@
             <td>{{ $plant->updated_at }}</td>
             @endrole
 	        <td>
-                <form action="{{ route('plants.destroy',$plant->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('plants.show',$plant->id) }}">Show</a>
-                    @can('plants-edit')
-                    <a class="btn btn-primary" href="{{ route('plants.edit',$plant->id) }}">Edit</a>
-                    @endcan
 
+                    @if ($plant->transaction_id == null))
+                        <span>no hay entry en plant_transactions table</span>
+                    @else
+                        <span>hay entry</span>
+                    @endif
 
-                    @csrf
-                    @method('DELETE')
-                    @can('plant-delete')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    @endcan
-                </form>
+                    <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->id]) }}">Like</a>
+                    <a class="btn btn-primary" href="{{ route('transactions.request',['plant_id' => $plant->id]) }}">Request</a>
 	        </td>
 	    </tr>
 	    @empty
@@ -59,6 +56,6 @@
     </table>
 
 
-    {!! $plants->links() !!}
+    {{-- {!! $plants->links() !!} --}}
 
 @endsection
