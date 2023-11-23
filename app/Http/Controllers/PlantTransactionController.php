@@ -8,7 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Plant;
-use App\Models\TransactionType;
 use App\Models\PlantTransaction;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
@@ -27,13 +26,14 @@ class PlantTransactionController extends Controller
         // $plants = Plant::where('user_id', '!=', $user_id)->paginate($num_plant);
         // return view('transactions.search',compact('plants'))->with('i', (request()->input('page', 1) - 1) * $num_plant);
         
-        $plants = Plant::select('plants.*', 'plant_transactions.id as transaction_id')
+        $transaction_types = PlantTransaction::returnTransactionTypeDictionary();
+        $plants = Plant::select('plants.*', 'plant_transactions.id as transaction_id', 'plant_transactions.transaction_type_id as transaction_type_id')
                 ->leftjoin('plant_transactions', 'plants.id', '=', 'plant_transactions.plant_id')
                 ->leftjoin('users', 'users.id', '=', 'plant_transactions.user_id')
                 ->where('plants.user_id', '!=', $user_id)
                 ->get();
 
-        return view('transactions.search',compact('plants'));
+        return view('transactions.search',compact('plants', 'transaction_types'));
     }
 
     /**
@@ -50,30 +50,50 @@ class PlantTransactionController extends Controller
         $plant = Plant::find($plant_id);
         
         // comprobar que la planta y el usuario existen
-        if ($plant & $user){
-            $results = PlantTransaction::where('plant_id', $location)->where('blood_group', $bloodGroup)->get();
+        if ($plant && $user){
+            $plant_transaction = PlantTransaction::where('plant_id', $plant->id)->where('user_id', $user->id)->count('id');
 
-            $plant_transaction = PlantTransaction::find('plants.id', 'plant_transactions.id as transaction_id')
-                    ->join('plant_transactions', 'plants.id', '=', 'plant_transactions.plant_id')
-                    ->where('plants.user_id', '!=', $user_id)
-                    ->get();
+            // dd($plant_transaction);
 
-            $transaction = new PlantTransaction;
-            // create a new entry in transaction table when the user like a plant
-            if ($plant->user_id != $user->id){
-                
-                $transaction->plant_id = $plant->id;
-                $transaction->user_id = $user->id;
-                $transaction->transaction_type_id = TransactionType::LIKE;
-                $transaction->save();
+            if ($plant_transaction == 0) {
+                // esta transaction NO exite, procedemos a guardar la planta en la lista de favoritos del usuario
+                $transaction = new PlantTransaction;
+                // create a new entry in transaction table when the user like a plant
+                if ($plant->user_id != $user->id){
+                    
+                    $transaction->plant_id = $plant->id;
+                    $transaction->user_id = $user->id;
+                    $transaction->transaction_type_id = PlantTransaction::LIKE;
+                    $transaction->save();
+                    $message_code = 'success';
+                    $message = 'Guadamos esta planta en tu lista de favoritos';
+                }
+                else {
+                    $message_code = 'error';
+                    $message = 'La planta o el usuario no existen';
+                }
             }
             else {
-                // esta planta pertenece al usuario que solicita anadirla a favoritos
+                // dd('esta transaction exite');
+                $message_code = 'error';
+                // $message = 'esta transaction exite';
+                $message = 'Esta planta ya está en tu lista de favoritos';
+                // return back()->with('error', $message);
             }
+            // exit();
+            
+        }
+        else {
+            $message_code = 'error';
+            // $message = 'La planta o el usuario no existen';
+            $message = 'No podemos proceder con la operación, intentelo de nuevo más tarde';
+            // return back()->with('error', $message);
         }
         
-        return redirect()->route('transactions.search')
-                        ->with('success','Guadamos esta planta en tu lista de favoritos');
+
+        return redirect()
+            ->route('transactions.search')
+            ->with($message_code,$message);
 
     }
 

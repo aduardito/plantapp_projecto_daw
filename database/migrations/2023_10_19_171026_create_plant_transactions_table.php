@@ -31,7 +31,7 @@ return new class extends Migration
                 table: 'users', 
                 indexName: 'user_id'
             )->onDelete('cascade');
-            $table->foreignId('transaction_type_id')->constrained(
+            $table->integer('transaction_type_id')->constrained(
                 table: 'transaction_types', 
                 indexName: 'transaction_type_id'
             )->onDelete('cascade');

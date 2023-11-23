@@ -13,7 +13,12 @@
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
+    @elseif ($message = Session::get('error'))
+        <div class="alert alert-warning">
+            <p>{{ $message }}</p>
+        </div>
     @endif
+
 
 
     <table class="table table-bordered">
@@ -39,14 +44,32 @@
 	        <td>
                     <a class="btn btn-info" href="{{ route('plants.show',$plant->id) }}">Show</a>
 
-                    @if ($plant->transaction_id == null))
-                        <span>no hay entry en plant_transactions table</span>
+                    @if ($plant->transaction_id == null)
+                        <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->id]) }}">Like</a>
+                        <a class="btn btn-primary" href="{{ route('transactions.request',['plant_id' => $plant->id]) }}">Request</a>
                     @else
-                        <span>hay entry</span>
+                        @switch($transaction_types[$plant->transaction_type_id])
+                            @case('like')
+                                <span class="status">LIKE</span>
+                                @break
+                
+                            @case('wants')
+                                <span class="status">WANT</span>
+                                @break
+                            @case('granted')
+                                <span class="status">GRANTED</span>
+                                @break
+                            @case('given_away')
+                                <span class="status">GIVEN_AWAY</span>
+                                @break
+                            @default
+                                <span class="status">Unknow</span>
+                        @endswitch
+
+
                     @endif
 
-                    <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->id]) }}">Like</a>
-                    <a class="btn btn-primary" href="{{ route('transactions.request',['plant_id' => $plant->id]) }}">Request</a>
+                    
 	        </td>
 	    </tr>
 	    @empty
