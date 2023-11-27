@@ -19,7 +19,15 @@
         </div>
     @endif
 
-
+    <div>
+        <form action="" method="GET">
+            {!! Form::label('plant_name', 'Nombre de la Planta') !!}
+            <input type="text" name="plant_name" id="" value="{{ $plant_name == null ? '' : $plant_name }}">
+            {!! Form::label('transaction_type_id', 'Estado de la transacción', ) !!}
+            {!! Form::select('transaction_type_id', $transaction_types, $transaction_type_id == null ? -1 : $transaction_type_id, ) !!}
+            {!! Form::submit('busca') !!}
+        </form>
+    </div>
 
     <table class="table table-bordered">
         <tr>
@@ -51,10 +59,12 @@
                         @switch($transaction_types[$plant->transaction_type_id])
                             @case('like')
                                 <span class="status">LIKE</span>
+                                <a class="btn btn-primary" href="{{ route('transactions.request',['plant_id' => $plant->id]) }}">Request</a>
                                 @break
                 
                             @case('wants')
                                 <span class="status">WANT</span>
+                                <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->id]) }}">Like</a>
                                 @break
                             @case('granted')
                                 <span class="status">GRANTED</span>
@@ -73,8 +83,25 @@
 	        </td>
 	    </tr>
 	    @empty
-            <tr>
-                <th>No hay plantas en la base de datos</th></tr>
+            <tr><th colspan=3>
+                @switch($transaction_types[$transaction_type_id])
+                @case('like')
+                    <p>No te ha gustado ninguna planta todavía <a  href="{{ route('transactions.search') }}">Busca plantas</a></p>
+                    @break
+                @case('wants')
+                    <p>No has pedido ninguna planta todavía <a href="{{ route('transactions.search') }}">Busca plantas</a></p>
+                    @break
+                @case('granted')
+                    <p>No te han escogido como nuevo owner de plantas que has pedido <a href="{{ route('transactions.search') }}">Busca plantas</a></p>
+                    @break
+                @case('given_away')
+                    <p>No tienes plantas donadas todavía <a href="{{ route('transactions.search') }}">Busca plantas</a></p>
+                    @break
+                @default
+                    <p>No hay plantas en la base de datos <a href="{{ route('transactions.search') }}">Busca plantas</a></p>
+            @endswitch                
+                
+            </th>   </tr>
         @endforelse
     </table>
 

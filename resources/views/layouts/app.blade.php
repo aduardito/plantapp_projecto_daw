@@ -71,13 +71,13 @@
                                     <li><a class="nav-link" href="{{ route('transactions.search') }}">Busca plantas</a></li>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('roles.index') }}">Favoritas</a>
+                                    <a class="nav-link" href="{{ route('transactions.search', ['transaction_type_id' => 1]) }}">Favorita</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('roles.index') }}">Peticiones</a>
+                                    <a class="nav-link" href="{{ route('transactions.search', ['transaction_type_id' => 2]) }}">Peticion</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('roles.index') }}">Donaciones</a>
+                                    <a class="nav-link" href="{{ route('transactions.search', ['transaction_type_id' => 3]) }}">Negociacion</a>
                                 </li>
                                 
                             @endrole
