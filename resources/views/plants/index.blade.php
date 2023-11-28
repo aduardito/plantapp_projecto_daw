@@ -2,17 +2,12 @@
 
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Plantas</h2>
-            </div>
-            <div class="pull-right">
-                @can('plant-create')
-                <a class="btn btn-success" href="{{ route('plants.create') }}"> Crea la nueva planta</a>
-                @endcan
-            </div>
-        </div>
+
+
+<div id="backoffice_container">
+    <div class=" action_header">
+        <h2>Plantas</h2>
+        <a class="btn btn-primary" href="{{ route('plants.create') }}">Crea tu nueva planta</a>
     </div>
 
 
@@ -67,5 +62,5 @@
 
 
     {!! $plants->links() !!}
-
+</div>
 @endsection

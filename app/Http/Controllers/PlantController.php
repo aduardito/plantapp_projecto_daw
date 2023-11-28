@@ -113,7 +113,7 @@ class PlantController extends Controller
      */
     public function edit(Plant $plant): View
     {
-        return view('plant.edit',compact('plant'));
+        return view('plants.edit',compact('plant'));
     }
     
     /**

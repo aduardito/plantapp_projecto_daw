@@ -81,7 +81,7 @@
     position: relative;
     padding: 10px;
     width: 1024px;
-    margin: 0 auto;
+    margin: 0 auto 60px;
 }
 
 #homepage_general #container{
@@ -198,6 +198,146 @@
 
 
 
+
+#pie_contenedor{
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#cuerpo{
+    position: inherit;
+    margin-top: 75px;
+    margin-bottom: 75px;
+    min-height: 200px;
+    width: 1024px;
+    
+}
+
+#img_container{
+    position: inherit;
+    height: 550px;
+    overflow: hidden;
+}
+
+#img_container img{
+width: 100%;
+}
+
+#tres_columnas_container{
+    position: inherit;
+    display: flex;
+    flex-direction: row;
+    color: black;
+    gap: 30px;
+}
+
+#tres_columnas_container p{
+    position: inherit;
+    display: flex;
+    flex-direction: row;
+    color: black;
+    gap: 30px;
+    margin: 30px 0;
+    text-align: justify;
+    text-justify: inter-word;
+    padding: 4px;
+}
+
+
+#titulo_img h1{
+    font-weight: normal;
+}
+
+
+#grid_imagen{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+
+#grid_imagen div.card_img{
+    overflow: hidden;
+    height: 400px;
+    width: 240px;
+    position: relative;
+    transition: all 1.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#grid_imagen div.card_img img{
+    height: 100%;
+    transition: all 1.5s;
+}
+
+#grid_imagen div.card_img h2{
+    position: absolute;
+    bottom: 60px;
+    left: 25px;
+    font-weight: normal;
+    word-spacing:normal;
+}
+
+
+#grid_imagen div.card_img:hover{
+    border: 1px solid grey;
+}
+
+
+#grid_imagen div.card_img:hover img{
+    scale: 140%;
+}
+
+
+#grid_imagen div.card_img:hover h2{
+    bottom: 5px;
+    left: 10px;
+}
+
+
+
+#pie{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid grey;
+    color: grey;
+    height: 45px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 10px;
+    
+}
+
+#pie div{
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: larger;
+}
+
+#pie div a, 
+#pie div a:visited, 
+#pie div a:active{  
+    color: grey;
+    padding-left: 10px;
+    text-decoration: none;
+}
+
+
+
+
+
 /* Grid transaction search page */
 #container_plants{
     width: 100%;
@@ -214,7 +354,7 @@
     width: 260px;
     display: flex;
     flex-direction: column;
-    border: 1px solid green;
+    background-color: rgb(221, 230, 173);
     padding: 10px;
 }
 
@@ -234,13 +374,15 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    
+    overflow: hidden;
 }
 
 
 #container_plants div.card .container_image img{
     height: 100%;
     display: flex;
-    
+    border-radius: 40px;
 }
 
 #container_plants div.card h4{
@@ -263,4 +405,102 @@
     background-color: green;
     color:greenyellow;
     border: 1px solid greenyellow;
+}
+
+
+
+
+
+
+
+
+
+
+
+.main_body{
+    background-color: white;
+}
+
+.main_body .container_body{
+    margin: 0 auto;
+    width: 1500px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+/* Busqueda plantas de otros */
+#backoffice_container{
+    margin: 30px 0 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+#backoffice_container #plant_search_form form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+
+#backoffice_container #plant_search_form form input{
+    padding: 15px;
+    width: 350px;
+    font-size: larger;
+    border-radius: 20px;
+    border: 0.5px solid grey;
+}
+
+#backoffice_container #plant_search_form form div select{
+    padding: 15px;
+    width: 200px;
+    font-size: larger;
+    border-radius: 20px;
+}
+
+#backoffice_container #plant_search_form form button{
+    padding: 15px;
+    font-size: larger;
+    border-radius: 20px;
+}
+
+
+.action_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    margin: 20px 0;
+}
+
+/* Login */
+#form_login{
+    margin: 30px;
+    width: 60%;
+}
+
+#form_login form{
+    display: flex;
+    flex-direction: column;
+}
+
+#form_login form div{
+    margin-top:10px;
+}
+
+#form_login form div.login_button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_input{
+    display: flex;
+    flex-direction: column;
 }

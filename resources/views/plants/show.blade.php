@@ -2,15 +2,10 @@
 
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Planta</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('plants.index') }}"> Atrás</a>
-            </div>
-        </div>
+<div id="backoffice_container">
+    <div class=" action_header">
+        <h2>Planta</h2>
+        <a class="btn btn-primary" href="{{ route('plants.index') }}">Atras</a>
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -42,4 +37,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

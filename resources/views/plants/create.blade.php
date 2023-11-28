@@ -1,17 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Publica tu nueva planta</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('plants.index') }}"> Back</a>
-            </div>
-        </div>
-    </div>
+<div id="backoffice_container">
 
+    <div class=" action_header">
+        <h2>Publica tu nueva plant</h2>
+        <a class="btn btn-primary" href="{{ route('plants.index') }}">Atrás</a>
+    </div>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -56,5 +51,5 @@
 
 
     </form>
-    
+</div>
 @endsection
