@@ -46,7 +46,7 @@
 	        <td>
                 <form action="{{ route('plants.destroy',$plant->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('plants.show',$plant->id) }}">Show</a>
-                    @can('plants-edit')
+                    @can('plant-edit')
                     <a class="btn btn-primary" href="{{ route('plants.edit',$plant->id) }}">Edit</a>
                     @endcan
 

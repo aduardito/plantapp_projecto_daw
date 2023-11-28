@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
   
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Plantapp') }}</title>
   
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -70,7 +70,7 @@
                                 <li class="nav-item">
                                     <li><a class="nav-link" href="{{ route('transactions.search') }}">Busca plantas</a></li>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="{{ route('transactions.search', ['transaction_type_id' => 1]) }}">Favorita</a>
                                 </li>
                                 <li class="nav-item">
@@ -78,14 +78,14 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('transactions.search', ['transaction_type_id' => 3]) }}">Negociacion</a>
-                                </li>
+                                </li> --}}
                                 
                             @endrole
 
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}  ({{ Auth::user()->id }})
+                                    {{ Auth::user()->email }}  ({{ Auth::user()->id }})
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"

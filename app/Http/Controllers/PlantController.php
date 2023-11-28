@@ -2,13 +2,13 @@
     
 namespace App\Http\Controllers;
     
-use App\Models\Plant;
-
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Plant;
+use App\Models\PlantTransaction;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
     
@@ -40,7 +40,6 @@ class PlantController extends Controller
         }
         else {
             $plants = Plant::where('user_id', '=',$user_id)->paginate($num_plant);
-            
         }
         return view('plants.index',compact('plants'))->with('i', (request()->input('page', 1) - 1) * $num_plant);
     }
@@ -92,7 +91,18 @@ class PlantController extends Controller
      */
     public function show(Plant $plant): View
     {
-        return view('plants.show',compact('plant'));
+        $user = User::find(Auth::id());
+        if (!$user){
+            // redirect a login page
+        }
+
+        $listUsersWantPlant = Plant::select('plant_transactions.id as transaction_id', 'plant_transactions.transaction_type_id as transaction_type_id, users.id as user_id, users.name as user_name, plants.id as plant_id')
+        ->join('plant_transactions', 'plants.id', '=', 'plant_transactions.plant_id')
+        ->join('users', 'plant_transactions.user_id', '=', 'users.id' )
+        ->where('plants.id', '=', $plant->id);
+        // dd($user);
+        dd($listUsersWantPlant->count());
+        return view('plants.show',compact('plant', 'listUsers'));
     }
     
     /**

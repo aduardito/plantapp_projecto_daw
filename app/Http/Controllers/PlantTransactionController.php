@@ -7,6 +7,8 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Plant;
 use App\Models\PlantTransaction;
 use App\Models\User;
@@ -25,27 +27,67 @@ class PlantTransactionController extends Controller
         $transaction_type_id = $request->query('transaction_type_id');
         // $num_plant = 10;
         $user_id = Auth::id();
-        // $plants = Plant::where('user_id', '!=', $user_id)->paginate($num_plant);
-        // return view('transactions.search',compact('plants'))->with('i', (request()->input('page', 1) - 1) * $num_plant);
-        
-        $transaction_types = PlantTransaction::returnTransactionTypeDictionary();
-        $transaction_types[-1] = 'All Types';
-        $plant_query = Plant::select('plants.*', 'plant_transactions.id as transaction_id', 'plant_transactions.transaction_type_id as transaction_type_id')
-                ->leftjoin('plant_transactions', 'plants.id', '=', 'plant_transactions.plant_id')
-                ->leftjoin('users', 'users.id', '=', 'plant_transactions.user_id')
-                ->where('plants.user_id', '!=', $user_id);
-
-                // dd($transaction_type_id);
-        if ($transaction_type_id != -1 && $transaction_type_id != null ){
-            $plant_query->where( 'plant_transactions.transaction_type_id', '=', $transaction_type_id,"AND" );
+        if (!$user_id) {
+            return view('welcome');
         }
+        else {
+            // $plants = Plant::where('user_id', '!=', $user_id)->paginate($num_plant);
+            // return view('transactions.search',compact('plants'))->with('i', (request()->input('page', 1) - 1) * $num_plant);
+            $transaction_types = PlantTransaction::returnTransactionTypeDictionary();
+            $transaction_types[-1] = 'All Types';
 
-        if($plant_name != null){
-            $plant_query->where( 'plants.name', 'like', "%{$plant_name}%","AND" );
+            $unrequested_plant_query = Plant::select([
+                    'id as plant_id', 
+                    'name as plant_name',
+                    'image_url as plant_image_url',
+                    'description as plant_description',
+                    'updated_at as updated_at',
+                    
+                    DB::raw("NULL as transaction_id"),
+                    DB::raw("NULL as transaction_type_id"),
+                    DB::raw("NULL as plant_transaction_user_id"),
+                ])
+                ->whereNotIn('id', PlantTransaction::select(['plant_id'])
+                    ->where('user_id', $user_id)
+                )
+                ->where('user_id', '!=', $user_id );
+            
+            $requested_plant_query = PlantTransaction::select(
+                    'plants.id as plant_id', 
+                    'plants.name as plant_name',
+                    'plants.image_url as plant_image_url',
+                    'plants.description as plant_description',
+                    'plant_transactions.updated_at as updated_at',
+                    'plant_transactions.id as transaction_id', 
+                    'plant_transactions.transaction_type_id as transaction_type_id', 
+                    'plant_transactions.user_id as plant_transaction_user_id'
+                )
+                ->join('plants', 'plants.id', '=', 'plant_transactions.plant_id')
+                ->join('users', 'users.id', '=', 'plant_transactions.user_id')
+                ->where('plant_transactions.user_id', '=', $user_id);
+
+
+
+            if($plant_name != null){
+                $unrequested_plant_query->where( 'plants.name', 'like', "%{$plant_name}%", "AND");
+                $requested_plant_query->where( 'plants.name', 'like', "%{$plant_name}%", "AND");
+            }
+
+            $plants_query = $requested_plant_query;
+
+            if ($transaction_type_id != -1 && $transaction_type_id != null){
+                $requested_plant_query->where( 'plant_transactions.transaction_type_id', '=', $transaction_type_id, "AND" );
+                
+            }
+            else {
+                $plants_query = $requested_plant_query->union($unrequested_plant_query);
+            }
+            
+            $plants_query->orderBy('updated_at');
+            $plants = $plants_query->get();
+
+            return view('transactions.search',compact('plants', 'transaction_types', 'plant_name', 'transaction_type_id'));
         }
-
-        $plants = $plant_query->get();
-        return view('transactions.search',compact('plants', 'transaction_types', 'plant_name', 'transaction_type_id'));
     }
 
     /**
@@ -58,6 +100,7 @@ class PlantTransactionController extends Controller
     {
         $plant_id = $request->query('plant_id');
         $user_id = Auth::id();
+
         $user = User::find($user_id);
         $plant = Plant::find($plant_id);
         
@@ -168,32 +211,4 @@ class PlantTransactionController extends Controller
             ->with($message_code,$message);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    // public function store(Request $request): RedirectResponse
-    // {
-    //     request()->validate([
-    //         'name' => 'required',
-    //         'description' => 'required',
-    //     ]);
-    
-    //     $file_name = $request->file('image_url')->getClientOriginalName();
-    //     $path = $request->file('image_url')->store('public/images');
-    //     $path_ = explode('public',$path);
-
-    //     $plant = new Plant;
-    //     $plant->name = $request->input('name');
-    //     $plant->description = $request->input('description');
-    //     $plant->image_url = 'storage' . $path_[1];
-    //     $plant->user_id = Auth::id();
-
-    //     $plant->save();
-
-    //     return redirect()->route('plants.index')
-    //                     ->with('success','Nueva planta creada correctamente.');
-    // }
 }

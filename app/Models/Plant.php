@@ -11,5 +11,4 @@ class Plant extends Model
 {
     use HasFactory;
 
-
 }

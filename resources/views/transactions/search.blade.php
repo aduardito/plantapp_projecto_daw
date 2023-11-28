@@ -29,83 +29,74 @@
         </form>
     </div>
 
-    <table class="table table-bordered">
-        <tr>
-            
-            <th>Nombre</th>
-            <th>User id</th>
-            @role('Admin')
-            <th>No</th>
-            <th>Fecha actualización</th>
-            @endrole
-            <th width="280px">Action</th>
-        </tr>
-	    @forelse ($plants as $plant)
-	    <tr>
-	        
-	        <td>{{ $plant->name }}</td>
-	        <td>{{ $plant->user_id }}</td>
-            @role('Admin')
-            <td>{{ $plant->id }}</td>
-            <td>{{ $plant->updated_at }}</td>
-            @endrole
-	        <td>
-                    <a class="btn btn-info" href="{{ route('plants.show',$plant->id) }}">Show</a>
 
-                    @if ($plant->transaction_id == null)
-                        <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->id]) }}">Like</a>
-                        <a class="btn btn-primary" href="{{ route('transactions.request',['plant_id' => $plant->id]) }}">Request</a>
-                    @else
-                        @switch($transaction_types[$plant->transaction_type_id])
-                            @case('like')
-                                <span class="status">LIKE</span>
-                                <a class="btn btn-primary" href="{{ route('transactions.request',['plant_id' => $plant->id]) }}">Request</a>
-                                @break
+
+    <div id="container_plants">
+
+
+
+        @forelse ($plants as $plant)
+
+            <div class="card">
+                <div class="container_image">
+                    <img src="{{ url( $plant->plant_image_url) }}" alt="" title="" class="img_pri" />
+                </div>
                 
-                            @case('wants')
-                                <span class="status">WANT</span>
-                                <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->id]) }}">Like</a>
-                                @break
-                            @case('granted')
-                                <span class="status">GRANTED</span>
-                                @break
-                            @case('given_away')
-                                <span class="status">GIVEN_AWAY</span>
-                                @break
-                            @default
-                                <span class="status">Unknow</span>
-                        @endswitch
+                <h3>{{ ucfirst($plant->plant_name) }}</h3>
+                {{-- <h4>ID: {{ $plant->plant_id }}</h4> --}}
+                <p>{{ Str::limit( $plant->plant_description, 60) }}</p>
+                <a class="btn btn-info" href="{{ route('plants.show',$plant->plant_id) }}">Show</a>
+
+                @if ($plant->transaction_id == null or $plant->plant_transaction_user_id != Auth::id())
+                    <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}">Favorita</a>
+                    <a class="btn btn-primary" href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}">La quiero</a>
+                @else
+                    @switch($transaction_types[$plant->transaction_type_id])
+                        @case('like')
+                            
+                            <span class="status"><i class="bi bi-chat-left-heart"></i>Me gusta</span>
+                            <a class="btn btn-primary" href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}">La quiero</a>
+                            @break
+            
+                        @case('wants')
+                            <span class="status"><i class="bi bi-cart"></i>La pedí</span>
+                            <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}">Favorita</a>
+                            @break
+                        @case('granted')
+                            <span class="status"><i class="bi bi-cart-check"></i>Serás el nuevo dueno</span>
+                            @break
+                        @case('given_away')
+                            <span class="status">La planta es tuya</span>
+                            @break
+                        @default
+                            <span class="status">Unknow</span>
+                    @endswitch
 
 
-                    @endif
-
-                    
-	        </td>
-	    </tr>
+                @endif
+                
+            </div>
+	    
 	    @empty
             <tr><th colspan=3>
                 @switch($transaction_types[$transaction_type_id])
                 @case('like')
-                    <p>No te ha gustado ninguna planta todavía <a  href="{{ route('transactions.search') }}">Busca plantas</a></p>
+                    <p>No te ha gustado ninguna planta todavía <a class="btn btn-info" href="{{ route('transactions.search') }}">Busca plantas</a></p>
                     @break
                 @case('wants')
-                    <p>No has pedido ninguna planta todavía <a href="{{ route('transactions.search') }}">Busca plantas</a></p>
+                    <p>No has pedido ninguna planta todavía <a class="btn btn-info" href="{{ route('transactions.search') }}">Busca plantas</a></p>
                     @break
                 @case('granted')
-                    <p>No te han escogido como nuevo owner de plantas que has pedido <a href="{{ route('transactions.search') }}">Busca plantas</a></p>
+                    <p>No te han escogido como nuevo owner de plantas que has pedido <a class="btn btn-info" href="{{ route('transactions.search') }}">Busca plantas</a></p>
                     @break
                 @case('given_away')
-                    <p>No tienes plantas donadas todavía <a href="{{ route('transactions.search') }}">Busca plantas</a></p>
+                    <p>No tienes plantas donadas todavía <a class="btn btn-info" href="{{ route('transactions.search') }}">Busca plantas</a></p>
                     @break
                 @default
-                    <p>No hay plantas en la base de datos <a href="{{ route('transactions.search') }}">Busca plantas</a></p>
+                    <p>No hay plantas en la base de datos <a class="btn btn-info" href="{{ route('transactions.search') }}">Busca plantas</a></p>
             @endswitch                
                 
             </th>   </tr>
         @endforelse
-    </table>
-
-
-    {{-- {!! $plants->links() !!} --}}
-
+    </div>
 @endsection

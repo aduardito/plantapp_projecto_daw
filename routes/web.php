@@ -47,3 +47,7 @@ Route::resource('plants', PlantController::class);
 Route::get('/transactions/search', [PlantTransactionController::class, 'search'])->name('transactions.search');
 Route::get('/transactions/like', [PlantTransactionController::class, 'likePlant'])->name('transactions.like');
 Route::get('/transactions/request', [PlantTransactionController::class, 'requestPlant'])->name('transactions.request');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,0 +1,266 @@
+/* Grid homepage */
+
+#homepage_grid{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+}
+
+#homepage_grid #homepage_billboard {
+    width: 100%;
+    
+}
+
+#homepage_grid #homepage_billboard img{
+    width: 100%;
+}
+
+
+#homepage_login_links{
+    position: absolute;
+    right: 25px;
+    top: 15px;
+    font-size:x-large;
+}
+
+
+
+
+#homepage_servicios{
+    background-color: black;
+    padding: 30px;
+    font-family: system-ui;
+}
+
+#homepage_servicios h2{
+    margin: 40px 30px 0px;
+    color: white;
+}
+
+#homepage_servicios_cards{
+    display: flex;
+    flex-direction: row;
+    height: 350px;
+    
+}
+
+#homepage_servicios_cards{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#homepage_servicios_cards .card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 250px;
+    border-radius: 70% 70% 70% 30%;
+
+}
+
+#homepage_servicios_cards .card p{
+    font-family: Aboreto;
+    font-size:xx-large;
+    font-weight: bolder;
+    padding: 20px;
+    margin: 0;
+    text-align:center;
+
+}
+
+#homepage_general_contact_form{
+    background-color: rgb(211, 211, 211) ;
+}
+
+#homepage_general{
+    position: relative;
+    padding: 10px;
+    width: 1024px;
+    margin: 0 auto;
+}
+
+#homepage_general #container{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    
+    
+}
+
+#homepage_general #container_form{
+    width: 70%;
+    background-color: rgb(233, 233, 233);
+    padding: 5%;
+}
+
+#homepage_general #container_form h1{
+    margin-bottom: 0;
+}
+
+#homepage_general #container_form p{
+    margin-top:0;
+    color: rgba(54, 54, 54, 0.781) ;
+    margin-bottom: 20px;
+}
+
+#homepage_general #container_form > form{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    width: 80%;
+}
+
+#homepage_general #container_form > form > input{
+    height: 35px;
+    padding: 5px;
+    margin-bottom: 25px;
+    border: 1px solid rgb(168, 167, 167);
+}
+
+#homepage_general #container_form > form > textarea{
+    height: 105px;
+    padding: 5px;
+    margin-bottom: 25px;
+    border: 1px solid rgb(168, 167, 167);
+}
+
+#homepage_general #container_form > form > button{
+    height: 45px;
+    background-color: black;
+    color: white;
+}
+
+#homepage_general #container_form > form > button:hover{
+    background-color: orange;
+    color: black;
+    opacity: 0.6;
+}
+
+#homepage_general #container_black{
+    width: 15%;
+    background-color: black;
+}
+
+
+
+#homepage_general #container_info{
+    position: absolute;
+    
+    right: 15px;
+    width: 340px;
+    height: 390px;
+    top: 100px;
+    z-index: 500;
+    background-color: white;
+    
+}
+#homepage_general #container_info img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+#homepage_general #container_info div{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    
+}
+
+#homepage_general #container_info div p, 
+#homepage_general #container_info div h1
+{
+    margin-bottom: 0;
+    padding: 0 50px;
+}
+
+#homepage_general #container_info div#background
+{
+    background-color: orange;
+    opacity: 0.6;
+}
+
+
+
+
+
+
+/* Grid transaction search page */
+#container_plants{
+    width: 100%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    grid-gap:7px
+}
+
+#container_plants div.card{
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid green;
+    padding: 10px;
+}
+
+#container_plants div.card h3{
+    text-align: center;
+    z-index: 1000;
+    height: 61px;
+}
+
+#container_plants div.card p{
+
+}
+
+#container_plants div.card .container_image{
+    width: 100%;
+    height: 146px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+#container_plants div.card .container_image img{
+    height: 100%;
+    display: flex;
+    
+}
+
+#container_plants div.card h4{
+    color: grey;
+    margin: 0
+}
+#container_plants div.card p{
+    color: grey;
+    margin: 0
+}
+
+#container_plants div.card button{
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    padding: 2px;
+}
+
+#container_plants div.card button:hover{
+    background-color: green;
+    color:greenyellow;
+    border: 1px solid greenyellow;
+}

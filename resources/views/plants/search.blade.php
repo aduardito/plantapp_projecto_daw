@@ -37,13 +37,14 @@
             <td>{{ $plant->updated_at }}</td>
             @endrole
 	        <td>
-                <form action="{{ route('plants.destroy',$plant->id) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('plants.show',$plant->id) }}">Show</a>
-                    @can('plants-edit')
+                <a class="btn btn-info" href="{{ route('plants.show',$plant->id) }}">Show</a>
+
                     <a class="btn btn-primary" href="{{ route('plants.edit',$plant->id) }}">Edit</a>
-                    @endcan
+                    
+                <form action="{{ route('plants.destroy',$plant->id) }}" method="POST">
+                    
 
-
+                    
                     @csrf
                     @method('DELETE')
                     @can('plant-delete')
