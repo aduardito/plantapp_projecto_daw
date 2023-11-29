@@ -31,10 +31,7 @@ return new class extends Migration
                 table: 'users', 
                 indexName: 'user_id'
             )->onDelete('cascade');
-            $table->integer('transaction_type_id')->constrained(
-                table: 'transaction_types', 
-                indexName: 'transaction_type_id'
-            )->onDelete('cascade');
+            $table->integer('transaction_type_id')->onDelete('cascade');
             $table->boolean('active')->default(true);
         });
     }
@@ -53,8 +50,6 @@ return new class extends Migration
         $table->dropIndex('user_id');
         $table->dropColumn('user_id');
 
-        $table->dropForeign('transaction_type_id');
-        $table->dropIndex('transaction_type_id');
         $table->dropColumn('transaction_type_id');
     }
 };
