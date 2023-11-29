@@ -45,13 +45,13 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            // 'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', 'plantappdb.c5i4alqgqirz.eu-north-1.rds.amazonaws.com'),
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '172.31.22.42'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'plantapp'),
             'username' => env('DB_USERNAME', 'admin'),
             'password' => env('DB_PASSWORD', 'plantApp_dawproject_dbpassword'),
-            // 'unix_socket' => env('DB_SOCKET', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
