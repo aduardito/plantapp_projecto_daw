@@ -16,9 +16,9 @@ class CreateAdminUserSeeder extends Seeder
     public function run(): void
     {
         $user = User::find(1);
-        
-        $role = Role::where('name', 'Admin')->first();
-         
+        $role = Role::create(['name' => 'Admin']);
         $user->assignRole([$role->id]);
     }
 }
+
+#CreateAdminUserSeeder.php

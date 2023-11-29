@@ -5,7 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
-  
+use Spatie\Permission\Models\Role;
+
+# php artisan db:seed PermissionTableSeeder
+
 class PermissionTableSeeder extends Seeder
 {
     /**
@@ -29,8 +32,13 @@ class PermissionTableSeeder extends Seeder
         ];
          
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::create(['name' => $permission, 'guard_name' => 'web']);
         }
 
+        $role = Role::findByName('Admin');
+
+        foreach($permissions as $permission){
+            $role->givePermissionTo($permission);
+        }
     }
 }
