@@ -44,7 +44,7 @@
                 <p>{{ Str::limit( $plant->plant_description, 60) }}</p>
 
                 <div class="plant_card_button">
-                    <a class="btn btn-info" href="{{ route('plants.show',$plant->plant_id) }}">Show</a>
+                    <a class="btn btn-info" href="{{ route('transactions.show',['plant_id' => $plant->plant_id]) }}">Show</a>
 
                     @if ($plant->transaction_id == null or $plant->plant_transaction_user_id != Auth::id())
                         <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}">Favorita</a>

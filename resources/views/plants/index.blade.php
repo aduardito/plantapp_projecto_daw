@@ -22,8 +22,9 @@
         <tr>
             
             <th>Nombre</th>
-            <th>User id</th>
+            <th>Descripción</th>
             @role('Admin')
+            <th>User id</th>
             <th>No</th>
             <th>Fecha actualización</th>
             @endrole
@@ -33,8 +34,9 @@
 	    <tr>
 	        
 	        <td>{{ $plant->name }}</td>
-	        <td>{{ $plant->user_id }}</td>
+	        <td>{{ Str::limit($plant->description, 40)  }}</td>
             @role('Admin')
+            <td>{{ $plant->user_id }}</td>
             <td>{{ $plant->id }}</td>
             <td>{{ $plant->updated_at }}</td>
             @endrole
@@ -42,7 +44,7 @@
                 <form action="{{ route('plants.destroy',$plant->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('plants.show',$plant->id) }}">Show</a>
                     @can('plant-edit')
-                    <a class="btn btn-primary" href="{{ route('plants.edit',$plant->id) }}">Edit</a>
+                    {{-- <a class="btn btn-primary" href="{{ route('plants.edit',$plant->id) }}">Edit</a> --}}
                     @endcan
 
 

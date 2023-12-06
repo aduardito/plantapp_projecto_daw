@@ -96,13 +96,18 @@ class PlantController extends Controller
             // redirect a login page
         }
 
-        $listUsersWantPlant = Plant::select('plant_transactions.id as transaction_id', 'plant_transactions.transaction_type_id as transaction_type_id, users.id as user_id, users.name as user_name, plants.id as plant_id')
+        $listUsersWantPlant = Plant::select(
+            'plant_transactions.id as transaction_id', 
+            'plant_transactions.transaction_type_id as transaction_type_id', 
+            'users.id as user_id', 
+            'users.name as user_name', 
+            'plants.id as plant_id')
         ->join('plant_transactions', 'plants.id', '=', 'plant_transactions.plant_id')
         ->join('users', 'plant_transactions.user_id', '=', 'users.id' )
-        ->where('plants.id', '=', $plant->id);
+        ->where('plants.id', '=', $plant->id)->get();
         // dd($user);
-        dd($listUsersWantPlant->count());
-        return view('plants.show',compact('plant', 'listUsers'));
+        // dd($listUsersWantPlant->count());
+        return view('plants.show',compact('plant', 'listUsersWantPlant'));
     }
     
     /**

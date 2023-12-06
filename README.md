@@ -80,3 +80,7 @@ Create a user in webpage
 
 php artisan db:seed CreateAdminUserSeeder
 php artisan db:seed PermissionTableSeeder
+
+
+Deploy laravel in AWS 
+https://ravitaxali.medium.com/how-to-deploy-a-laravel-app-on-aws-ec2-ubuntu-9a5b3d0999d8

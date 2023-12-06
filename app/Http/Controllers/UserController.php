@@ -35,7 +35,7 @@ class UserController extends Controller
      */
     public function create(): View
     {
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::pluck('name','User')->all();
         return view('users.create',compact('roles'));
     }
     
@@ -57,8 +57,8 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
     
-        $role = Role::findByName('User');
-
+        $role = Role::findByName('User')->first();
+        // dd($role);
         $user = User::create($input);
         $user->assignRole([$role->id]);
     

@@ -4,37 +4,62 @@
 @section('content')
 <div id="backoffice_container">
     <div class=" action_header">
-        <h2>Planta</h2>
+        <h2>Detalles de la Planta</h2>
         <a class="btn btn-primary" href="{{ route('plants.index') }}">Atras</a>
     </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Nombre de la planta:</strong>
-                {{ $plant->name }}
+    <div class="plant_container">
+        <div class="plant_container_details">
+            <div >
+                    <strong>Nombre de la planta:</strong>
+                    {{ $plant->name }}
+            </div>
+            <div>
+                    <strong>Description:</strong>
+                    {{ $plant->description }}
+            </div>
+            <div>
+                    <strong>Image url:</strong>
+                    {{ $plant->image_url }}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Description:</strong>
-                {{ $plant->description }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Image url:</strong>
-                {{ $plant->image_url }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
+        <div class="plant_container_image">
+            
+            <div>
                 <img src="{{ url( $plant->image_url) }}" alt="">
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <a href="{{ url( $plant->image_url) }}" alt="">descargar</a>
+            <div>
+                <a href="{{ url( $plant->image_url) }}" alt="">descargar imagen</a>
             </div>
+        </div>
+        
+    </div>
+    <div class="plant_container">
+        <div class="plant_container_usuarios">
+            <h3>Usuarios interesados</h3>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Transaction id</th>
+                    <th>Nombre de usuario</th>
+                    <th width="280px">Actiones</th>
+                </tr>
+                @if (count($listUsersWantPlant) > 0)
+                    @foreach ($listUsersWantPlant as $user)
+                    <tr>
+                        <td>{{ $user->transaction_id }}</td>
+                        <td>{{ $user->user_name }}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}">Aceptar</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="3">No hay usuarios</td>
+                    </tr>
+                @endif
+                
+            </table>
         </div>
     </div>
 </div>

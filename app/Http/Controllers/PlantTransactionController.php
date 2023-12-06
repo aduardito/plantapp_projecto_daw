@@ -211,4 +211,17 @@ class PlantTransactionController extends Controller
             ->with($message_code,$message);
     }
 
+
+    
+
+    public function showPlant(Request $request): View
+    {
+        $user = User::find(Auth::id());
+        if (!$user){
+            // redirect a login page
+        }
+        $plant = Plant::find($request->query('plant_id'));
+        return view('transactions.show',compact('plant'));
+    }
+
 }
