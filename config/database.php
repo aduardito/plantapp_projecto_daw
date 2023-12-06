@@ -48,7 +48,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', 'plantappdb.c5i4alqgqirz.eu-north-1.rds.amazonaws.com'),
+            'host' => env('DB_HOST', '172.31.48.99'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'plantapp'),
             'username' => env('DB_USERNAME', 'plantAppDBadmiN'),
