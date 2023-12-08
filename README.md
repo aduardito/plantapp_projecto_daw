@@ -1,4 +1,84 @@
 # plantapp_projecto_daw
+
+Este proyecto está desarrollado como proyecto final del Ciclo formativo de Grado Superio de Desarrollo de Aplicaciones web del instituto IES Arcipreste de Hita de Azuqueca de Henares. Guadalajara, España
+
+El autor es: Eduardo González Munoz
+
+
+## Sobre el proyecto
+
+Este es proyecto de una apliación que permite el intercambio de producto, en este caso, los clientes podrán intercambiar de forma sencilla sus plantas. 
+
+
+## Arquitectura del proyecto
+Entorno de desarrollo
+- WSL
+- Docker
+- Visual Studio Code
+- Protocolo SSH para la administración de nuestro servidor
+
+Entorno de producción
+- Utilizamos Amazon Web Services para el despliegue de la aplicación
+- Instancia EC2 Ubuntu 
+- Instancia RDS con Mysql
+
+Proyecto
+- Lenguaje de programación PHP
+- Framework Laravel
+- Base de daots con MySQL
+- Servidor Nginx
+- Github - servidor público con tecnología GIT para el control de versiones
+
+
+## Commandos Laravel utilizados
+
+php artisan db:seed CreateAdminUserSeeder
+php artisan db:seed PermissionTableSeeder
+
+Este comand, nos permite crear un nuevo modelo, controlador y 
+- php artisan make:model UserMessage -mcr
+
+Este comando es necesario cuando hemos creamos la definición de una nueva tabla
+- php artisan migrate
+
+## Commandos Git
+
+- git status
+- git add .
+- git commit -m ""
+- eval "$(ssh-agent -s)"
+- ssh-add ~/.ssh/plantapp_projecto_daw
+- git push origin HEAD:main
+
+
+## Commandos Amazon Web services
+
+Connectarnos a nuestra instancia
+ssh -i "plantapp_server.pem" ubuntu@ec2-13-53-122-82.eu-north-1.compute.amazonaws.com
+
+Copiar imagenes/archivos a la instancia EC2
+scp -i "plantapp_server.pem" /home/nuc/Sites/plantapp/storage/app/public/icons/*  ubuntu@ec2-51-20-253-148.eu-north-1.compute.amazonaws.com:/var/www/vhosts/plantapp.daw/storage/app/public/icons
+
+
+## Pasos para el despligue de la aplicación en produción
+
+DROP schema plantapp;
+Create schema plantapp;
+
+Este comando, permite que todo el codigo css/javascript se comprima
+npm run dev
+npm run build
+
+Commandos laravel
+Estos comandos nos ayudarán a crear permisos y ha asignar el usuario administrador al primer usuario de la página
+php artisan db:seed CreateAdminUserSeeder
+php artisan db:seed PermissionTableSeeder
+
+Guida para el despligue de tu aplicación laravel en EC2 Ubuntu
+https://ravitaxali.medium.com/how-to-deploy-a-laravel-app-on-aws-ec2-ubuntu-9a5b3d0999d8
+
+
+## Laravel
 =======
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
@@ -9,58 +89,6 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
 ## Security Vulnerabilities
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
@@ -68,19 +96,3 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-## Deployment steps
-DROP schema plantapp;
-Create schema plantapp;
-
-command line:
-npm run dev
-
-Create a user in webpage
-
-php artisan db:seed CreateAdminUserSeeder
-php artisan db:seed PermissionTableSeeder
-
-
-Deploy laravel in AWS 
-https://ravitaxali.medium.com/how-to-deploy-a-laravel-app-on-aws-ec2-ubuntu-9a5b3d0999d8
