@@ -20,9 +20,7 @@
                 {!! Form::label('transaction_type_id', 'Estado', ) !!}
                 {!! Form::select('transaction_type_id', $transaction_types, $transaction_type_id == null ? -1 : $transaction_type_id, ) !!}
             </div>
-
-
-            <button type="submit" class="btn btn-primary">Buscar</button>
+            <button type="submit" class="btn btn-primary">Probar suerte</button>
         </form>
     </div>
 
@@ -38,42 +36,63 @@
                 <div class="container_image">
                     <img src="{{ url( $plant->plant_image_url) }}" alt="" title="" class="img_pri" />
                 </div>
-                
-                <h3>{{ ucfirst($plant->plant_name) }}</h3>
-                {{-- <h4>ID: {{ $plant->plant_id }}</h4> --}}
-                <p>{{ Str::limit( $plant->plant_description, 60) }}</p>
+                <div class="container_plant_details">
+                    <div>
+                        <h3>{{ ucfirst($plant->plant_name) }}</h3>
+                    </div>
+                    <div>
+                        {{-- <h4>ID: {{ $plant->plant_id }}</h4> --}}
+                        <p>{{ Str::limit( $plant->plant_description, 60) }}</p>
+                    </div>
+                    
 
-                <div class="plant_card_button">
-                    <a class="btn btn-info" href="{{ route('transactions.show',['plant_id' => $plant->plant_id]) }}">Show</a>
+                    <div class="plant_card_button">
+                        <a href="{{ route('transactions.show',['plant_id' => $plant->plant_id]) }}"  title="Ver detalles">
+                            <img class="icon" src="{{ url('storage/icons/icono_pedido_detalle.png') }}" alt="">
+                        </a>
 
-                    @if ($plant->transaction_id == null or $plant->plant_transaction_user_id != Auth::id())
-                        <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}">Favorita</a>
-                        <a class="btn btn-primary" href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}">La quiero</a>
-                    @else
-                        @switch($transaction_types[$plant->transaction_type_id])
-                            @case('like')
-                                
-                                <span class="status"><i class="bi bi-chat-left-heart"></i>Me gusta</span>
-                                <a class="btn btn-primary" href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}">La quiero</a>
-                                @break
-                
-                            @case('wants')
-                                <span class="status"><i class="bi bi-cart"></i>La pedí</span>
-                                <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}">Favorita</a>
-                                @break
-                            @case('granted')
-                                <span class="status"><i class="bi bi-cart-check"></i>Serás el nuevo dueno</span>
-                                @break
-                            @case('given_away')
-                                <span class="status">La planta es tuya</span>
-                                @break
-                            @default
-                                <span class="status">Unknow</span>
-                        @endswitch
+                        @if ($plant->transaction_id == null or $plant->plant_transaction_user_id != Auth::id())
+                            <a  href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}"  title="Guarda en Favoritos">
+                                <img class="icon" src="{{ url('storage/icons/icono_planta_favorito_negro.png') }}" alt="">
+                            </a>
+                            <a href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}" title="Pídeme">
+                                <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
+                            </a>
+                        @else
+                            @switch($plant->transaction_type_id)
+                                @case(1)
+                                    <a href="" title="En favoritos">
+                                        <img class="icon" src="{{ url('storage/icons/icono_panta_fav_rojo_lleno.png') }}" alt="En favoritos">
+                                    </a>
+                                    <a href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}" title="Pídeme">
+                                        <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
+                                    </a>
+                                    @break
+                    
+                                @case(2)
+                                    <a href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}"  title="Guarda en Favoritos">
+                                        <img class="icon" src="{{ url('storage/icons/icono_planta_favorito_negro.png') }}" alt="">
+                                    </a>
+                                    <a href="" title="Pedida">
+                                        <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_dos.png') }}" alt="">
+                                    </a>
+                                    
+                                    @break
+                                @case(3)
+                                    <span class="status"><img class="icon" src="{{ url('storage/icons/icono_pedido_paso_tres.png') }}" alt=""></span>
+                                    @break
+                                @case(4)
+                                    <span class="status"><img class="icon" src="{{ url('storage/icons/icono_pedido  _paso_cuatro.png') }}" alt=""></span>
+                                    @break
+                                @default
+                                    <span class="status">Unknow: {{ $plant->transaction_type_id }}</span>
+                            @endswitch
 
 
-                    @endif
+                        @endif
+                    </div>
                 </div>
+                
 
                 
                 

@@ -98,7 +98,7 @@
                             <form action="">
                                 <input type="text" name="name" placeholder="Nombre">
                                 <input type="email" name="email" placeholder="Correo electrónico">
-                                <textarea name="mensaje" id="" cols="30" rows="10"></textarea>
+                                <textarea name="mensaje" id="" cols="30" rows="10" maxlength="255"></textarea>
                                 <button type="submit" name="send">Enviar</button>
                             </form>
                         </div>

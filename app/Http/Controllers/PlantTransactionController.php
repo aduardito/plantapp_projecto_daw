@@ -34,7 +34,7 @@ class PlantTransactionController extends Controller
             // $plants = Plant::where('user_id', '!=', $user_id)->paginate($num_plant);
             // return view('transactions.search',compact('plants'))->with('i', (request()->input('page', 1) - 1) * $num_plant);
             $transaction_types = PlantTransaction::returnTransactionTypeDictionary();
-            $transaction_types[-1] = 'All Types';
+            $transaction_types[-1] = 'Todos';
 
             $unrequested_plant_query = Plant::select([
                     'id as plant_id', 
@@ -42,7 +42,6 @@ class PlantTransactionController extends Controller
                     'image_url as plant_image_url',
                     'description as plant_description',
                     'updated_at as updated_at',
-                    
                     DB::raw("NULL as transaction_id"),
                     DB::raw("NULL as transaction_type_id"),
                     DB::raw("NULL as plant_transaction_user_id"),

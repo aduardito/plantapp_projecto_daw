@@ -49,7 +49,8 @@
                         <td>{{ $user->transaction_id }}</td>
                         <td>{{ $user->user_name }}</td>
                         <td>
-                            <a class="btn btn-primary" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}">Aceptar</a>
+                            <a href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}" title="Aceptar"><img class="icon enlace" src="{{ url('storage/icons/icono_pedido_aceptar.png') }}" alt=""></a>
+                            <a href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}" title="Rechazar"><img class="icon enlace" src="{{ url('storage/icons/icono_pedido_rechazar.png') }}" alt=""></a>
                         </td>
                     </tr>
                     @endforeach

@@ -57,11 +57,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 300px;
+    width: 250px;
     height: 250px;
     border-radius: 70% 70% 70% 30%;
-
 }
+
+
 
 #homepage_servicios_cards .card p{
     font-family: Aboreto;
@@ -339,6 +340,9 @@ width: 100%;
 
 
 /* Grid transaction search page */
+
+
+
 #container_plants{
     width: 100%;
     margin: 10px auto;
@@ -350,66 +354,83 @@ width: 100%;
     grid-gap:7px
 }
 
-#container_plants div.card{
-    width: 260px;
+#container_plants .card{
+    width: 290px;
     display: flex;
     flex-direction: column;
-    background-color: rgb(221, 230, 173);
-    padding: 10px;
-}
-
-#container_plants div.card h3{
-    text-align: center;
-    z-index: 1000;
-    height: 61px;
-}
-
-#container_plants div.card p{
-
-}
-
-#container_plants div.card .container_image{
-    width: 100%;
-    height: 146px;
-    display: flex;
+    justify-content: center;
     align-items: center;
-    flex-direction: column;
-    
-    overflow: hidden;
+    padding: 20px 20px;
 }
 
+#container_plants .card .container_image{
+    width: 60%;
+    height: 146px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    border-radius: 40px;
+    z-index: 1;
+}
 
 #container_plants div.card .container_image img{
     height: 100%;
-    display: flex;
     border-radius: 40px;
+    z-index: 2;
 }
 
-#container_plants div.card h4{
-    color: grey;
-    margin: 0
-}
-#container_plants div.card p{
-    color: grey;
-    margin: 0
+#container_plants .card .container_plant_details{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#container_plants div.card button{
-    background-color: black;
-    color: white;
-    border: 1px solid black;
-    padding: 2px;
+#container_plants .card .container_plant_details div{
+    padding-top: 20px;
+    height: 60px;
+    width: 100%;
 }
 
-#container_plants div.card button:hover{
-    background-color: green;
-    color:greenyellow;
-    border: 1px solid greenyellow;
+#container_plants .card .container_plant_details div h3{
+    text-align: center;
+
+}
+
+#container_plants .card .container_plant_details div p{
+    text-align: center;
+
+}
+
+#container_plants .card .container_plant_details .plant_card_button{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 10px 0;
 }
 
 
 
 
+
+
+
+
+.icon{
+    width: 40px;
+    height: 40px;
+}
+
+.pulsa:hover{
+    background-color: rgb(248, 151, 148);
+    border-radius: 5px;
+}
+
+
+button.enlace{
+    border: 0;
+    background-color: transparent;
+}
 
 
 
@@ -459,7 +480,7 @@ width: 100%;
 
 #backoffice_container #plant_search_form form div select{
     padding: 15px;
-    width: 200px;
+    width: 270px;
     font-size: larger;
     border-radius: 20px;
 }
@@ -572,4 +593,43 @@ width: 100%;
     align-items: center;
     width: 80%;
     margin: 40px 0 40px;
+}
+
+
+
+/* login page */
+/* register page */
+
+
+#form_login_plantapp{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 50px 0 200px;
+}
+
+#form_login_plantapp_page_title{
+    margin-bottom: 100px;
+}
+
+#form_login_plantapp_con{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#form_login_plantapp_img{
+    width: 20%;
+    overflow: hidden;
+}
+#form_login_plantapp_img img{
+    width: 100%;
+}
+
+#form_login_plantapp_form{
+    width: 40%;
+}
+
+#form_login_plantapp_form form div{
+    margin-bottom: 10px;
 }

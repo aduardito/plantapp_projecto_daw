@@ -42,7 +42,9 @@
             @endrole
 	        <td>
                 <form action="{{ route('plants.destroy',$plant->id) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('plants.show',$plant->id) }}">Show</a>
+                    <a href="{{ route('plants.show',$plant->id) }}">
+                        <img class="icon pulsa" src="{{ url('storage/icons/icono_pedido_detalle.png') }}" alt="">
+                    </a>
                     @can('plant-edit')
                     {{-- <a class="btn btn-primary" href="{{ route('plants.edit',$plant->id) }}">Edit</a> --}}
                     @endcan
@@ -51,7 +53,9 @@
                     @csrf
                     @method('DELETE')
                     @can('plant-delete')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="enlace">
+                        <img class="icon pulsa" src="{{ url('storage/icons/icono_pedido_borrar.png') }}" alt="">
+                    </button>
                     @endcan
                 </form>
 	        </td>

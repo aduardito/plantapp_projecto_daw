@@ -16,10 +16,10 @@ class PlantTransaction extends Model
 
     public static function returnTransactionTypeDictionary(){
         return $transactionTypesArray = [
-            self::LIKE => 'like',
-            self::WANTS => 'wants',
-            self::GRANTED => 'granted' ,
-            self::GIVEN_AWAY => 'given_away'
+            self::LIKE => 'Me gusta',
+            self::WANTS => 'La pedí',
+            self::GRANTED => 'Me eligieron como dueñ@' ,
+            self::GIVEN_AWAY => 'Soy el nuevo dueñ@'
         ];
     }
 }

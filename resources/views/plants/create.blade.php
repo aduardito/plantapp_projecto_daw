@@ -10,7 +10,7 @@
 
     @if ($errors->any())
         <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <strong>Ohh!</strong> Ha habido un problema.<br><br>
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -25,19 +25,19 @@
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
 		            <strong>Nombre:</strong>
-		            <input type="text" name="name" class="form-control" placeholder="Name">
+		            <input type="text" name="name" class="form-control" placeholder="Nombre de la planta">
 		        </div>
 		    </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
-		            <strong>Description:</strong>
-		            <textarea class="form-control" style="height:150px" name="description" placeholder="Detail"></textarea>
+		            <strong>Descripción:</strong>
+		            <textarea class="form-control" style="height:150px" name="description" placeholder="Detail" maxlength="250"></textarea>
 		        </div>
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
 		            <strong>Imagen:</strong>
-		            <input type="file" name="image_url" class="form-control" placeholder="Name">
+		            <input type="file" name="image_url" class="form-control" placeholder="Seleciona el archivo con la imagen de tu planta">
                     @error('image_url')
                         <div class="alert alert-danger mt-1 mb-1">{{ message }}</div>
                     @enderror
