@@ -47,9 +47,11 @@ Este comando es necesario cuando hemos creamos la definición de una nueva tabla
 - git add .
 - git commit -m ""
 - eval "$(ssh-agent -s)"
-- ssh-add ~/.ssh/plantapp_projecto_daw
+- ssh-add /home/nuc/.ssh/plantapp_projecto_daw
 - git push origin HEAD:main
 
+- git reset --hard HEAD
+- git pull
 
 ## Commandos Amazon Web services
 

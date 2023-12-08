@@ -6,7 +6,7 @@
     <div class="action_header">
         <h2>Roles</h2>
         @can('role-create')
-        <a class="btn btn-success" href="{{ route('roles.create') }}">Crear Nuevo rol</a>
+        <a class="btn btn-primary" href="{{ route('roles.create') }}">Crear Nuevo rol</a>
         @endcan
     </div>
     
@@ -29,14 +29,18 @@
         <tr>
             <td>{{ ++$i }}</td>
             <td>{{ $role->name }}</td>
-            <td>
-                <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
+            <td class="lista_acciones">
+                <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">
+                    <img class="icon" src="{{ url('storage/icons/icono_pedido_detalle.png') }}" alt="">
+                </a>
                 @can('role-edit')
-                    <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">
+                        <img class="icon" src="{{ url('storage/icons/icono_pedido_editar.png') }}" alt="">
+                    </a>
                 @endcan
                 @can('role-delete')
                     {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                        <button type="submit" class="btn btn-danger"><img class="icon" src="{{ url('storage/icons/icono_pedido_borrar.png') }}" alt=""></button>
                     {!! Form::close() !!}
                 @endcan
             </td>

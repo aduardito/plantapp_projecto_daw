@@ -14,14 +14,25 @@
     @endif
 
     <div id="plant_search_form">
-        <form action="" method="GET">
+        {!! Form::open(['method' => 'get']) !!}
+            <input type="text" name="plant_name" placeholder="Nombre de la planta" id="" value="{{ $plant_name == null ? '' : $plant_name }}">
+            <div>
+                {!! Form::label('transaction_type_id', 'Estado', ) !!}
+                {!! Form::select('transaction_type_id', $transaction_types, $transaction_type_id == null ? -1 : $transaction_type_id, ) !!}
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Probar suerte
+            </button>
+        {!! Form::close() !!}
+
+        {{-- <form action="" method="GET">
             <input type="text" name="plant_name" placeholder="Nombre de la planta" id="" value="{{ $plant_name == null ? '' : $plant_name }}">
             <div>
                 {!! Form::label('transaction_type_id', 'Estado', ) !!}
                 {!! Form::select('transaction_type_id', $transaction_types, $transaction_type_id == null ? -1 : $transaction_type_id, ) !!}
             </div>
             <button type="submit" class="btn btn-primary">Probar suerte</button>
-        </form>
+        </form> --}}
     </div>
 
 
@@ -47,33 +58,34 @@
                     
 
                     <div class="plant_card_button">
-                        <a href="{{ route('transactions.show',['plant_id' => $plant->plant_id]) }}"  title="Ver detalles">
-                            <img class="icon" src="{{ url('storage/icons/icono_pedido_detalle.png') }}" alt="">
-                        </a>
+                            <a class="btn btn-light" href="{{ route('transactions.show',['plant_id' => $plant->plant_id]) }}"  title="Ver detalles">
+                                <img class="icon" src="{{ url('storage/icons/icono_pedido_detalle.png') }}" alt="">
+                            </a>
+                      
 
                         @if ($plant->transaction_id == null or $plant->plant_transaction_user_id != Auth::id())
-                            <a  href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}"  title="Guarda en Favoritos">
+                            <a class="btn btn-light" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}"  title="Guarda en Favoritos">
                                 <img class="icon" src="{{ url('storage/icons/icono_planta_favorito_negro.png') }}" alt="">
                             </a>
-                            <a href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}" title="Pídeme">
+                            <a class="btn btn-light" href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}" title="Pídeme">
                                 <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
                             </a>
                         @else
                             @switch($plant->transaction_type_id)
                                 @case(1)
-                                    <a href="" title="En favoritos">
+                                    <a class="btn btn-light" href="" title="En favoritos">
                                         <img class="icon" src="{{ url('storage/icons/icono_panta_fav_rojo_lleno.png') }}" alt="En favoritos">
                                     </a>
-                                    <a href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}" title="Pídeme">
+                                    <a class="btn btn-light"  href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}" title="Pídeme">
                                         <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
                                     </a>
                                     @break
                     
                                 @case(2)
-                                    <a href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}"  title="Guarda en Favoritos">
+                                    <a class="btn btn-light" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}"  title="Guarda en Favoritos">
                                         <img class="icon" src="{{ url('storage/icons/icono_planta_favorito_negro.png') }}" alt="">
                                     </a>
-                                    <a href="" title="Pedida">
+                                    <a class="btn btn-light" href="" title="Pedida">
                                         <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_dos.png') }}" alt="">
                                     </a>
                                     

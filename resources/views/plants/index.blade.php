@@ -40,25 +40,30 @@
             <td>{{ $plant->id }}</td>
             <td>{{ $plant->updated_at }}</td>
             @endrole
-	        <td>
-                <form action="{{ route('plants.destroy',$plant->id) }}" method="POST">
-                    <a href="{{ route('plants.show',$plant->id) }}">
-                        <img class="icon pulsa" src="{{ url('storage/icons/icono_pedido_detalle.png') }}" alt="">
-                    </a>
-                    @can('plant-edit')
-                    {{-- <a class="btn btn-primary" href="{{ route('plants.edit',$plant->id) }}">Edit</a> --}}
-                    @endcan
 
 
-                    @csrf
-                    @method('DELETE')
-                    @can('plant-delete')
-                    <button type="submit" class="enlace">
-                        <img class="icon pulsa" src="{{ url('storage/icons/icono_pedido_borrar.png') }}" alt="">
-                    </button>
-                    @endcan
-                </form>
+	        <td class="lista_acciones">
+                <a class="btn btn-info" href="{{ route('plants.show',$plant->id) }}">
+                    <img class="icon pulsa" src="{{ url('storage/icons/icono_pedido_detalle.png') }}" alt="">
+                </a>
+                @can('plant-edit')
+                {{-- <a class="btn btn-primary" href="{{ route('plants.edit',$plant->id) }}">Edit</a> --}}
+                @endcan
+
+
+                @csrf
+                @method('DELETE')
+                @can('plant-delete')
+                    {!! Form::open(['method' => 'POST','route' => ['plants.destroy',$plant->id],'style'=>'display:inline']) !!}
+                        <button type="submit" class="btn btn-danger">
+                            <img class="icon" src="{{ url('storage/icons/icono_pedido_borrar.png') }}" alt="">
+                        </button>
+                    {!! Form::close() !!}
+                @endcan
 	        </td>
+        </td>
+
+
 	    </tr>
 	    @empty
             <tr>

@@ -6,7 +6,7 @@
     <div class="action_header">
         <h2>Administración de Usuarios</h2>
         @can('role-create')
-        <a class="btn btn-success" href="{{ route('users.create') }}">Crear Nuevo usuario</a>
+        <a class="btn btn-primary" href="{{ route('users.create') }}">Crear Nuevo usuario</a>
         @endcan
     </div>
 
@@ -45,12 +45,19 @@
                 @endif
             </div> 
         </td>
-        <td>
-        <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-        <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
+        <td class="lista_acciones">
+            <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">
+                <img class="icon" src="{{ url('storage/icons/icono_pedido_detalle.png') }}" alt="">
+            </a>
+            <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">
+                <img class="icon" src="{{ url('storage/icons/icono_pedido_editar.png') }}" alt="">
+            </a>
             {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                <button type="submit" class="btn btn-danger">
+                    <img class="icon" src="{{ url('storage/icons/icono_pedido_borrar.png') }}" alt="">
+                </button>
             {!! Form::close() !!}
+
         </td>
     </tr>
     @endforeach
