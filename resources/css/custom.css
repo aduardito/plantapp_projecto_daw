@@ -664,3 +664,59 @@ button.enlace{
     width: 100%;
 }
 
+
+/* plant_container_transaction_steps */
+
+.acciones_plant_transaction{
+    display: flex;
+    flex-direction: column ;
+    justify-content: center;
+}
+
+.acciones_plant_transaction_header{
+    font-size: x-large;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.plant_container_transaction_steps{
+    display: flex;
+    flex-direction: row ;
+    justify-content: center;
+    gap: 10px;
+    height: 120px;
+}
+
+.plant_container_transaction_steps .transaction_action{
+    display: flex;
+    flex-direction: column ;
+    justify-content: center;
+    height: 80%;
+    /* border: 1px dotted grey; */
+    padding: 10px;
+}
+
+.plant_container_transaction_steps .transaction_action .transaction_action_header{ 
+    display: flex;
+    flex-direction: row ;
+    justify-content: start;
+    height: 30%;
+}
+
+.plant_container_transaction_steps .transaction_action .transaction_action_body{
+    display: flex;
+    flex-direction: row ;
+    justify-content: center;
+    height: 80%;
+}
+.plant_container_transaction_steps .transaction_action .transaction_action_body a{
+    display: flex;
+    flex-direction: row ;
+    justify-content: start;
+    height: 100%;
+}
+
+.plant_container_transaction_steps .transaction_action .transaction_action_body a img{
+
+    height: 100%;
+}

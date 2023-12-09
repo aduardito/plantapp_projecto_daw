@@ -91,7 +91,10 @@
                                     
                                     @break
                                 @case(3)
-                                    <span class="status"><img class="icon" src="{{ url('storage/icons/icono_pedido_paso_tres.png') }}" alt=""></span>
+                                    <a class="btn btn-light" href="" title="Te han escogido">
+                                        <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_tres.png') }}" alt="">
+                                    </a>
+                                    {{-- <span class="status"><img class="icon" src="{{ url('storage/icons/icono_pedido_paso_tres.png') }}" alt=""></span> --}}
                                     @break
                                 @case(4)
                                     <span class="status"><img class="icon" src="{{ url('storage/icons/icono_pedido  _paso_cuatro.png') }}" alt=""></span>

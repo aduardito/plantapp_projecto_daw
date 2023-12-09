@@ -215,12 +215,220 @@ class PlantTransactionController extends Controller
 
     public function showPlant(Request $request): View
     {
+        $plant_id = $request->query('plant_id');
         $user = User::find(Auth::id());
         if (!$user){
-            // redirect a login page
+            // redirect a login page;
         }
-        $plant = Plant::find($request->query('plant_id'));
-        return view('transactions.show',compact('plant'));
+        $plant = Plant::find($plant_id);
+        // dd($plant);
+        $transactions = PlantTransaction::where('plant_id', $plant_id)->where('user_id',$user->id)->get();
+        return view('transactions.show',compact('plant', 'transactions'));
+    }
+
+    /**
+     * 
+     */
+    public function choosePlantOwner(Request $request): RedirectResponse
+    {
+        $transaction = PlantTransaction::find($request->query('transaction_id'));
+
+        if ($transaction){
+            
+            PlantTransaction::whereIn('transaction_type_id', [PlantTransaction::GRANTED, PlantTransaction::WANTS])
+                ->where('plant_id', $transaction->plant_id)
+                ->update([
+                    'transaction_type_id' => PlantTransaction::WANTS
+                ]);
+
+            $transaction = PlantTransaction::find($request->query('transaction_id'));
+            $transaction->transaction_type_id = PlantTransaction::GRANTED;
+            $transaction->save();
+
+            $message_code = 'success';
+            $message = 'Guadamos esta planta en tu lista de peticiones';
+        }
+        else {
+            $message_code = 'error';
+            $message = 'No podemos proceder con la operación, intentelo de nuevo más tarde';
+        }
+        return redirect()
+            ->route('plants.show', $transaction->plant_id)
+            ->with($message_code,$message);
+    }
+    
+
+
+    public function showPlantLike(Request $request): RedirectResponse
+    {
+        $plant_id = $request->query('plant_id');
+        $user = User::find(Auth::id());
+ 
+        $plantTransactionQuery = PlantTransaction::where( 'user_id', $user->id );
+        $plantTransaction = $plantTransactionQuery->where('plant_id', $plant_id)->first();
+
+        if ($plantTransaction){
+            $plantTransaction->transaction_type_id = PlantTransaction::LIKE;
+            $plantTransaction->save();
+            $message_code = 'success';
+            $message = 'Actualizamos tu lista de favoritos con esta planta';
+
+        }
+        else {
+            $plantTransaction = new PlantTransaction;
+            $plantTransaction->plant_id = $plant_id;
+            $plantTransaction->user_id = $user->id;
+            $plantTransaction->transaction_type_id = PlantTransaction::LIKE;
+            $plantTransaction->save();
+            $message_code = 'success';
+            $message = 'Guadamos esta planta en tu lista de favoritos';
+        }
+        return redirect()
+            ->route('transactions.show', ['plant_id' => $plant_id])
+            ->with($message_code,$message);
+    }
+
+
+
+    public function showPlantDislike(Request $request): RedirectResponse   
+    {
+
+        $plant_id = $request->query('plant_id');
+        $user = User::find(Auth::id());
+ 
+        $plantTransactionQuery = PlantTransaction::where( 'user_id', $user->id );
+        $plantTransaction = $plantTransactionQuery->where('plant_id', $plant_id)->first();
+
+        if ($plantTransaction){
+            $plantTransaction->delete();
+            $message_code = 'success';
+            $message = 'Eliminamos esta planta de tu lista de favoritos';
+        }
+        else {
+            $message_code = 'error';
+            $message = 'Ha habido un error, prueba de nuevo mas tarde';
+        }
+
+
+        return redirect()
+            ->route('transactions.show', ['plant_id' => $plant_id])
+            ->with($message_code,$message);
+    }
+
+
+    public function showPlantWant(Request $request): RedirectResponse 
+    {
+        $plant_id = $request->query('plant_id');
+        $user = User::find(Auth::id());
+ 
+        $plantTransactionQuery = PlantTransaction::where( 'user_id', $user->id );
+        $plantTransaction = $plantTransactionQuery->where('plant_id', $plant_id)->first();
+
+        if ($plantTransaction){
+            $plantTransaction->transaction_type_id = PlantTransaction::WANTS;
+            $plantTransaction->save();
+            $message_code = 'success';
+            $message = 'Acabas de pedir esta planta. N';
+
+        }
+        else {
+            $plantTransaction = new PlantTransaction;
+            $plantTransaction->plant_id = $plant_id;
+            $plantTransaction->user_id = $user->id;
+            $plantTransaction->transaction_type_id = PlantTransaction::WANTS;
+            $plantTransaction->save();
+            $message_code = 'success';
+            $message = 'Acabas de pedir esta planta. N';
+        }
+
+        return redirect()
+            ->route('transactions.show', ['plant_id' => $plant_id])
+            ->with($message_code,$message);
+    }
+
+
+
+
+
+    public function showPlantUnwant(Request $request): RedirectResponse
+    {
+        $plant_id = $request->query('plant_id');
+        $user = User::find(Auth::id());
+ 
+        $plantTransactionQuery = PlantTransaction::where( 'user_id', $user->id );
+        $plantTransaction = $plantTransactionQuery->where('plant_id', $plant_id)->first();
+
+        if ($plantTransaction){
+            $plantTransaction->delete();
+            $message_code = 'success';
+            $message = 'Eliminamos esta planta de tu lista de favoritos';
+        }
+        else {
+            $message_code = 'error';
+            $message = 'Ha habido un error, prueba de nuevo mas tarde';
+        }
+
+        return redirect()
+            ->route('transactions.show', ['plant_id' => $plant_id])
+            ->with($message_code,$message);
+    }
+
+    public function showPlantAcceptDelivery(Request $request): RedirectResponse
+    {
+        $plant_id = $request->query('plant_id');
+        $user = User::find(Auth::id());
+        
+        $plant = Plant::find($plant_id);
+        $plantTransactionQuery = PlantTransaction::where( 'user_id', $user->id );
+        $plantTransaction = $plantTransactionQuery->where('plant_id', $plant_id)->first();
+
+        if ($plantTransaction){
+            if($plant){
+                $plant->status = 2;
+                $plant->save();
+                $plantTransaction->transaction_type_id = PlantTransaction::GIVEN_AWAY;
+                $plantTransaction->save();
+                $message_code = 'success';
+                $message = 'Has rechazado el producto';
+            }
+            else {
+
+            }
+
+        }
+        else {
+            $message_code = 'error';
+            $message = 'Ha habido un error, prueba de nuevo mas tarde';
+        }
+
+        return redirect()
+            ->route('transactions.show', ['plant_id' => $plant_id])
+            ->with($message_code,$message);
+    }
+
+
+    public function showPlantRejectDelivery(Request $request): RedirectResponse
+    {
+
+        $plant_id = $request->query('plant_id');
+        $user = User::find(Auth::id());
+ 
+        $plantTransactionQuery = PlantTransaction::where( 'user_id', $user->id );
+        $plantTransaction = $plantTransactionQuery->where('plant_id', $plant_id)->first();
+
+        if ($plantTransaction){
+            $plantTransaction->delete();
+            $message_code = 'success';
+            $message = 'Has rechazado el producto';
+        }
+        else {
+            $message_code = 'error';
+            $message = 'Ha habido un error, prueba de nuevo mas tarde';
+        }
+
+        return redirect()
+            ->route('transactions.show', ['plant_id' => $plant_id])
+            ->with($message_code,$message);
     }
 
 }

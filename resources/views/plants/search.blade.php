@@ -38,19 +38,14 @@
             @endrole
 	        <td>
                 <a class="btn btn-info" href="{{ route('plants.show',$plant->id) }}">Show</a>
-
-                    <a class="btn btn-primary" href="{{ route('plants.edit',$plant->id) }}">Edit</a>
-                    
-                <form action="{{ route('plants.destroy',$plant->id) }}" method="POST">
-                    
-
-                    
-                    @csrf
-                    @method('DELETE')
-                    @can('plant-delete')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    @endcan
-                </form>
+                <a class="btn btn-primary" href="{{ route('plants.edit',$plant->id) }}">Edit</a>
+                @can('plant-delete')
+                    <form action="{{ route('plants.destroy',$plant->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                @endcan
 	        </td>
 	    </tr>
 	    @empty

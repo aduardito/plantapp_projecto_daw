@@ -96,18 +96,24 @@ class PlantController extends Controller
             // redirect a login page
         }
 
-        $listUsersWantPlant = Plant::select(
+        $transactionTypeDictionary = PlantTransaction::returnTransactionTypeDictionaryPlantOwner();
+
+        $listUsersWantPlantquery = Plant::select(
             'plant_transactions.id as transaction_id', 
             'plant_transactions.transaction_type_id as transaction_type_id', 
+            'plant_transactions.active as transaction_active', 
             'users.id as user_id', 
             'users.name as user_name', 
             'plants.id as plant_id')
         ->join('plant_transactions', 'plants.id', '=', 'plant_transactions.plant_id')
         ->join('users', 'plant_transactions.user_id', '=', 'users.id' )
-        ->where('plants.id', '=', $plant->id)->get();
+        ->where('plants.id', '=', $plant->id)
+        ->whereIn('plant_transactions.transaction_type_id', array(PlantTransaction::GRANTED, PlantTransaction::WANTS));
+        // $listUsersWantPlantquery->whereIn('plant_transactions.transaction_type_id', array(2, 3));
+        $listUsersWantPlant = $listUsersWantPlantquery->get();
         // dd($user);
         // dd($listUsersWantPlant->count());
-        return view('plants.show',compact('plant', 'listUsersWantPlant'));
+        return view('plants.show',compact('plant', 'listUsersWantPlant', 'transactionTypeDictionary'));
     }
     
     /**
@@ -157,6 +163,10 @@ class PlantController extends Controller
         return redirect()->route('plants.index')
                         ->with('success','Planta borrada correctamente');
     }
+
+
+
+
 
     
 }

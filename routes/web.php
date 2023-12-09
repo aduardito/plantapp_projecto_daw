@@ -44,10 +44,20 @@ Route::get('/dashboard', function () {
 
 Route::resource('plants', PlantController::class);
 
+
 Route::get('/transactions/search', [PlantTransactionController::class, 'search'])->name('transactions.search');
 Route::get('/transactions/like', [PlantTransactionController::class, 'likePlant'])->name('transactions.like');
 Route::get('/transactions/request', [PlantTransactionController::class, 'requestPlant'])->name('transactions.request');
 Route::get('/transactions/show', [PlantTransactionController::class, 'showPlant'])->name('transactions.show');
+Route::get('/transactions/choose', [PlantTransactionController::class, 'choosePlantOwner'])->name('transactions.choose');
+
+
+Route::get('/transactions/splike', [PlantTransactionController::class, 'showPlantLike'])->name('transactions.splike');
+Route::get('/transactions/spwant', [PlantTransactionController::class, 'showPlantWant'])->name('transactions.spwant');
+Route::get('/transactions/spdislike', [PlantTransactionController::class, 'showPlantdislike'])->name('transactions.spdislike');
+Route::get('/transactions/spunwant', [PlantTransactionController::class, 'showPlantUnwant'])->name('transactions.spunwant');
+Route::get('/transactions/spaccept', [PlantTransactionController::class, 'showPlantAcceptDelivery'])->name('transactions.spaccept');
+Route::get('/transactions/spreject', [PlantTransactionController::class, 'showPlantRejectDelivery'])->name('transactions.spreject');
 
 
 Auth::routes();
