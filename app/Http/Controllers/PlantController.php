@@ -14,6 +14,7 @@ use Spatie\Permission\Models\Role;
     
 class PlantController extends Controller
 { 
+    
     /**
      * Display a listing of the resource.
      *

@@ -30,7 +30,11 @@ Route::get('/', function () {
   
 Auth::routes();
   
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home.home');
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::get('/privacy', [HomeController::class, 'privacy'])->name('home.privacy');
+
+
   
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
@@ -44,13 +48,11 @@ Route::get('/dashboard', function () {
 
 Route::resource('plants', PlantController::class);
 
-
 Route::get('/transactions/search', [PlantTransactionController::class, 'search'])->name('transactions.search');
 Route::get('/transactions/like', [PlantTransactionController::class, 'likePlant'])->name('transactions.like');
 Route::get('/transactions/request', [PlantTransactionController::class, 'requestPlant'])->name('transactions.request');
 Route::get('/transactions/show', [PlantTransactionController::class, 'showPlant'])->name('transactions.show');
 Route::get('/transactions/choose', [PlantTransactionController::class, 'choosePlantOwner'])->name('transactions.choose');
-
 
 Route::get('/transactions/splike', [PlantTransactionController::class, 'showPlantLike'])->name('transactions.splike');
 Route::get('/transactions/spwant', [PlantTransactionController::class, 'showPlantWant'])->name('transactions.spwant');
@@ -61,5 +63,3 @@ Route::get('/transactions/spreject', [PlantTransactionController::class, 'showPl
 
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

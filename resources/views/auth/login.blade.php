@@ -41,6 +41,10 @@
                             {{ __('Login') }}
                         </button>
 
+                    </div>
+                    <div class="login_input login_button">
+
+
                         @if (Route::has('password.request'))
                             <a class="btn btn-link" href="{{ route('password.request') }}">
                                 {{ __('Olvidaste tu contraseña?') }}
@@ -51,8 +55,12 @@
                     </div>
 
 
+
                 </form>
             </div>
+        </div>
+        <div id="form_login_plantapp_con_privacy">
+            <h3>Importante!! Lea nuestra <a href="{{ route('home.privacy') }}">{{ __('Política de privacidad') }}</a></h3>
         </div>
         
         

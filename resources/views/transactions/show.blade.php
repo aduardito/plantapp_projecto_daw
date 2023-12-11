@@ -122,84 +122,87 @@
 
 
     <div class="acciones_plant_transaction">
+        @if ($plant->status !=2)
+            @if ($transactions && count($transactions) == 1)
+                <div class="acciones_plant_transaction_header">Decide que hacer</div>
+                    <div class="plant_container_transaction_steps">
+                        @foreach ($transactions as $transaction)
+                            @switch($transaction->transaction_type_id)
+                                @case(1) 
+                                {{-- like --}}
+                                    <div class="transaction_action">
+                                        <div class="transaction_action_body">
+                                            <a class="btn btn-light" href="{{ route('transactions.spdislike',['plant_id' => $plant->id]) }}" title="Quitar de favoritos">
+                                                <img class="icon" src="{{ url('storage/icons/icono_planta_favorito_negro.png') }}" alt="En favoritos">
+                                            </a>
+                                            <a class="btn" href="{{ route('transactions.spwant',['plant_id' => $plant->id]) }}" title="Pedir">
+                                                <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
+                                            </a>
+                                        </div>
 
-        @if ($transactions && count($transactions) == 1)
-            <div class="acciones_plant_transaction_header">Decide que hacer</div>
-                <div class="plant_container_transaction_steps">
-                    @foreach ($transactions as $transaction)
-                        @switch($transaction->transaction_type_id)
-                            @case(1) 
-                            {{-- like --}}
-                                <div class="transaction_action">
-                                    <div class="transaction_action_body">
-                                        <a class="btn btn-light" href="{{ route('transactions.spdislike',['plant_id' => $plant->id]) }}" title="Quitar de favoritos">
-                                            <img class="icon" src="{{ url('storage/icons/icono_planta_favorito_negro.png') }}" alt="En favoritos">
-                                        </a>
-                                        <a class="btn" href="{{ route('transactions.spwant',['plant_id' => $plant->id]) }}" title="Pedir">
-                                            <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
-                                        </a>
                                     </div>
 
-                                </div>
-
-    
-                                @break
-                
-                            @case(2)
-                                {{-- wants --}}
-                                <div class="transaction_action">
-                                    <div class="transaction_action_body">
-                                        {{-- <a class="btn btn-light" href="" title="Marcar como favorita">
-                                            <img class="icon" src="{{ url('storage/icons/icono_panta_fav_rojo_lleno.png') }}" alt="">
-                                        </a> --}}
-                                        <a class="btn btn-light" href="{{ route('transactions.spunwant',['plant_id' => $plant->id]) }}" title="Rechazar pedido">
-                                            <img class="icon" src="{{ url('storage/icons/icono_pedido_rechazar.png') }}" alt="Rechazar">
-                                        </a>
+        
+                                    @break
+                    
+                                @case(2)
+                                    {{-- wants --}}
+                                    <div class="transaction_action">
+                                        <div class="transaction_action_body">
+                                            {{-- <a class="btn btn-light" href="" title="Marcar como favorita">
+                                                <img class="icon" src="{{ url('storage/icons/icono_panta_fav_rojo_lleno.png') }}" alt="">
+                                            </a> --}}
+                                            <a class="btn btn-light" href="{{ route('transactions.spunwant',['plant_id' => $plant->id]) }}" title="Rechazar pedido">
+                                                <img class="icon" src="{{ url('storage/icons/icono_pedido_rechazar.png') }}" alt="Rechazar">
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                @break
-                            @case(3)
-                            {{-- tu seras el nuevo dueno --}}
-                                <div class="transaction_action">
-                                    <div class="transaction_action_body">
-                                        {{-- <a class="btn btn-light" href="" title="Marcar como favorita">
-                                            <img class="icon" src="{{ url('storage/icons/icono_panta_fav_rojo_lleno.png') }}" alt="">
-                                        </a> --}}
-                                        <a class="btn btn-light" href="{{ route('transactions.spreject',['plant_id' => $plant->id]) }}" title="Rechazar entrega">
-                                            <img class="icon" src="{{ url('storage/icons/icono_pedido_rechazar.png') }}" alt="Rechazar">
-                                        </a>
-                                        <a class="btn btn-light" href="{{ route('transactions.spaccept',['plant_id' => $plant->id]) }}" title="Aceptar entrega">
-                                            <img class="icon" src="{{ url('storage/icons/icono_pedido_aceptar.png') }}" alt="Rechazar">
-                                        </a>
-                                        
-                                    </div>
-                                </div>                            
-                                {{-- <span class="status"><img class="icon" src="{{ url('storage/icons/icono_pedido_paso_tres.png') }}" alt=""></span> --}}
-                                @break
-                        @endswitch
+                                    @break
+                                @case(3)
+                                {{-- tu seras el nuevo dueno --}}
+                                    <div class="transaction_action">
+                                        <div class="transaction_action_body">
+                                            {{-- <a class="btn btn-light" href="" title="Marcar como favorita">
+                                                <img class="icon" src="{{ url('storage/icons/icono_panta_fav_rojo_lleno.png') }}" alt="">
+                                            </a> --}}
+                                            <a class="btn btn-light" href="{{ route('transactions.spreject',['plant_id' => $plant->id]) }}" title="Rechazar entrega">
+                                                <img class="icon" src="{{ url('storage/icons/icono_pedido_rechazar.png') }}" alt="Rechazar">
+                                            </a>
+                                            <a class="btn btn-light" href="{{ route('transactions.spaccept',['plant_id' => $plant->id]) }}" title="Aceptar entrega">
+                                                <img class="icon" src="{{ url('storage/icons/icono_pedido_aceptar.png') }}" alt="Rechazar">
+                                            </a>
+                                            
+                                        </div>
+                                    </div>                            
+                                    {{-- <span class="status"><img class="icon" src="{{ url('storage/icons/icono_pedido_paso_tres.png') }}" alt=""></span> --}}
+                                    @break
+                            @endswitch
 
-                    @endforeach
-                </div>
-            </div>
-        @else
-            <div class="acciones_plant_transaction_header">Acciones sobre esta planta 1</div>
-                <div class="plant_container_transaction_steps">
-                    <div class="transaction_action">
-                        <div class="transaction_action_body">
-                            {{-- {{ dd($plant->id) }} --}}
-                            <a class="btn btn-light" href="{{ route('transactions.splike',['plant_id' => $plant->id]) }}" title="Marcar como Favorita">
-                                <img class="icon" src="{{ url('storage/icons/icono_panta_fav_rojo_lleno.png') }}" alt="En favoritos">
-                            </a>
-                            <a class="btn" href="{{ route('transactions.spwant',['plant_id' => $plant->id]) }}" title="Pedir planta">
-                                <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
-                            </a>
-                        </div>
-
+                        @endforeach
                     </div>
                 </div>
-            </div>
-        @endif
-            
+            @else
+                <div class="acciones_plant_transaction_header">Acciones sobre esta planta 1</div>
+                    <div class="plant_container_transaction_steps">
+                        <div class="transaction_action">
+                            <div class="transaction_action_body">
+                                {{-- {{ dd($plant->id) }} --}}
+                                <a class="btn btn-light" href="{{ route('transactions.splike',['plant_id' => $plant->id]) }}" title="Marcar como Favorita">
+                                    <img class="icon" src="{{ url('storage/icons/icono_panta_fav_rojo_lleno.png') }}" alt="En favoritos">
+                                </a>
+                                <a class="btn" href="{{ route('transactions.spwant',['plant_id' => $plant->id]) }}" title="Pedir planta">
+                                    <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @else
+        <div><p>Planta no disponible</p></div>
+                
+        @endif    
     </div>            
     
 </div>

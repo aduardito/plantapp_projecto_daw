@@ -43,7 +43,7 @@
                         <a href="{{ route('login') }}" class="">Log in</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="">Register</a>
+                            <a href="{{ route('register') }}" class="">Registro</a>
                         @endif
                     @endauth
                 </div>
@@ -71,26 +71,26 @@
                 <div id="grid_imagen">
                     <div class="card_img">
                         <img src="{{ url('storage/homepage/planta_uno.jpg') }}" alt="">
-                        <h2>Planta 1</h2>
+                        <h2>Costillas</h2>
                     </div>
                     <div class="card_img">
                         <img src="{{ url('storage/homepage/planta_dos.jpg') }}" alt="">
-                        <h2>Planta 2</h2>
+                        <h2>Carnivora</h2>
                     </div>
                     <div class="card_img">
                         <img src="{{ url('storage/homepage/planta_tres.jpg') }}" alt="">
-                        <h2>Planta 3</h2>
+                        <h2>Carnivora</h2>
                     </div>
                     <div class="card_img">
                         <img src="{{ url('storage/homepage/planta_cuatro.jpg') }}" alt="">
-                        <h2>Planta 4</h2>
+                        <h2>Sansiviera</h2>
                     </div>
                 </div>
         
             </div>
 
             
-                <div id="homepage_general">
+                {{-- <div id="homepage_general">
                     <div id="container">
                         <div id="container_form">
                             <h1>Contacta con nosotros</h1>
@@ -111,23 +111,25 @@
                             <h1>PlantApp</h1>
                             <p>Calle falsa, 23</p>
                             <p>servicio@plantapp.es</p>
-                            <p>987654312</p>
+                            <p>978701213</p>
                         </div>
                         
                     </div>
-                </div>
+                </div> --}}
             
 
             <div id="pie">
                 <div>
-                    <p>2023</p>
+                    <div class="pie_left">
+                        <a href="{{ route('home.privacy') }}">2023</a>
+                    </div>
+                    
+                    <div class="pie_right">
+                        <a href="{{ route('home.contact') }}">Contacta con Nosotros</a>
+                        <a href="{{ route('home.privacy') }}">Política de privacidad</a>
+                    </div>
                 </div>
-                
-                <div>
-                    <a href="">Política de privacidad</a>
-                    <a href="">Política de privacidad</a>
-                    <a href="">Política de privacidad</a>
-                </div>
+
             </div>
 
         </div>

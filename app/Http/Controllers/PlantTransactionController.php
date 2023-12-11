@@ -16,6 +16,19 @@ use Spatie\Permission\Models\Role;
 
 class PlantTransactionController extends Controller
 {
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+         $this->middleware('permission:plant-list|plant-create|plant-edit|plant-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:plant-create', ['only' => ['create','store']]);
+         $this->middleware('permission:plant-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:plant-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -40,6 +53,7 @@ class PlantTransactionController extends Controller
                     'id as plant_id', 
                     'name as plant_name',
                     'image_url as plant_image_url',
+                    'status as plant_status',
                     'description as plant_description',
                     'updated_at as updated_at',
                     DB::raw("NULL as transaction_id"),
@@ -55,6 +69,7 @@ class PlantTransactionController extends Controller
                     'plants.id as plant_id', 
                     'plants.name as plant_name',
                     'plants.image_url as plant_image_url',
+                    'plants.status as plant_status',
                     'plants.description as plant_description',
                     'plant_transactions.updated_at as updated_at',
                     'plant_transactions.id as transaction_id', 
@@ -384,7 +399,7 @@ class PlantTransactionController extends Controller
 
         if ($plantTransaction){
             if($plant){
-                $plant->status = 2;
+                $plant->status = Plant::DELIVERED;
                 $plant->save();
                 $plantTransaction->transaction_type_id = PlantTransaction::GIVEN_AWAY;
                 $plantTransaction->save();

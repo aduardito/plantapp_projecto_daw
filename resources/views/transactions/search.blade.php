@@ -43,7 +43,7 @@
 
         @forelse ($plants as $plant)
 
-            <div class="card">
+            <div class="card {{ $plant->plant_status != 2 ? 'planta_disponible' :'planta_entregada' }}">
                 <div class="container_image">
                     <img src="{{ url( $plant->plant_image_url) }}" alt="" title="" class="img_pri" />
                 </div>
@@ -62,49 +62,55 @@
                                 <img class="icon" src="{{ url('storage/icons/icono_pedido_detalle.png') }}" alt="">
                             </a>
                       
-
-                        @if ($plant->transaction_id == null or $plant->plant_transaction_user_id != Auth::id())
-                            <a class="btn btn-light" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}"  title="Guarda en Favoritos">
-                                <img class="icon" src="{{ url('storage/icons/icono_planta_favorito_negro.png') }}" alt="">
-                            </a>
-                            <a class="btn btn-light" href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}" title="Pídeme">
-                                <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
-                            </a>
+                        @if ($plant->plant_status !=2)
+                            @if ($plant->transaction_id == null or $plant->plant_transaction_user_id != Auth::id())
+                                <a class="btn btn-light" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}"  title="Guarda en Favoritos">
+                                    <img class="icon" src="{{ url('storage/icons/icono_planta_favorito_negro.png') }}" alt="">
+                                </a>
+                                <a class="btn btn-light" href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}" title="Pídeme">
+                                    <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
+                                </a>
+                            @else
+                                @switch($plant->transaction_type_id)
+                                    @case(1)
+                                        <a class="btn btn-light" href="" title="En favoritos">
+                                            <img class="icon" src="{{ url('storage/icons/icono_panta_fav_rojo_lleno.png') }}" alt="En favoritos">
+                                        </a>
+                                        <a class="btn btn-light"  href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}" title="Pídeme">
+                                            <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
+                                        </a>
+                                        @break
+                        
+                                    @case(2)
+                                        <a class="btn btn-light" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}"  title="Guarda en Favoritos">
+                                            <img class="icon" src="{{ url('storage/icons/icono_planta_favorito_negro.png') }}" alt="">
+                                        </a>
+                                        <a class="btn btn-light" href="" title="Pedida">
+                                            <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_dos.png') }}" alt="">
+                                        </a>
+                                        
+                                        @break
+                                    @case(3)
+                                        <a class="btn btn-light" href="" title="Te han escogido">
+                                            <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_tres.png') }}" alt="">
+                                        </a>
+                                        {{-- <span class="status"><img class="icon" src="{{ url('storage/icons/icono_pedido_paso_tres.png') }}" alt=""></span> --}}
+                                        @break
+                                    @case(4)
+                                        <a class="btn" href="" title="Te han escogido">
+                                            <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_cuatro.png') }}" alt="">
+                                        </a>
+                                        @break
+                                    @default
+                                        <span class="status">Unknow: {{ $plant->transaction_type_id }}</span>
+                                @endswitch
+                            @endif
                         @else
-                            @switch($plant->transaction_type_id)
-                                @case(1)
-                                    <a class="btn btn-light" href="" title="En favoritos">
-                                        <img class="icon" src="{{ url('storage/icons/icono_panta_fav_rojo_lleno.png') }}" alt="En favoritos">
-                                    </a>
-                                    <a class="btn btn-light"  href="{{ route('transactions.request',['plant_id' => $plant->plant_id]) }}" title="Pídeme">
-                                        <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_uno.png') }}" alt="">
-                                    </a>
-                                    @break
-                    
-                                @case(2)
-                                    <a class="btn btn-light" href="{{ route('transactions.like',['plant_id' => $plant->plant_id]) }}"  title="Guarda en Favoritos">
-                                        <img class="icon" src="{{ url('storage/icons/icono_planta_favorito_negro.png') }}" alt="">
-                                    </a>
-                                    <a class="btn btn-light" href="" title="Pedida">
-                                        <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_dos.png') }}" alt="">
-                                    </a>
-                                    
-                                    @break
-                                @case(3)
-                                    <a class="btn btn-light" href="" title="Te han escogido">
-                                        <img class="icon" src="{{ url('storage/icons/icono_pedido_paso_tres.png') }}" alt="">
-                                    </a>
-                                    {{-- <span class="status"><img class="icon" src="{{ url('storage/icons/icono_pedido_paso_tres.png') }}" alt=""></span> --}}
-                                    @break
-                                @case(4)
-                                    <span class="status"><img class="icon" src="{{ url('storage/icons/icono_pedido  _paso_cuatro.png') }}" alt=""></span>
-                                    @break
-                                @default
-                                    <span class="status">Unknow: {{ $plant->transaction_type_id }}</span>
-                            @endswitch
-
-
+                        <a class="btn" href="" title="No disponible">
+                            <p>No disponible</p>
+                        </a>
                         @endif
+                        
                     </div>
                 </div>
                 

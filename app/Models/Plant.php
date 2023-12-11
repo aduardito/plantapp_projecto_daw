@@ -11,4 +11,7 @@ class Plant extends Model
 {
     use HasFactory;
 
+    const READY = 1;
+    const DELIVERED = 2;
+
 }

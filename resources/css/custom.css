@@ -16,16 +16,12 @@
     width: 100%;
 }
 
-
 #homepage_login_links{
     position: absolute;
     right: 25px;
     top: 15px;
     font-size:x-large;
 }
-
-
-
 
 #homepage_servicios{
     background-color: black;
@@ -315,27 +311,56 @@ width: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     font-size: 10px;
     
 }
 
-#pie div{
+#pie > div{
     display: flex;
     align-items: center;
     padding: 0 10px;
-    font-size: larger;
+    width: 1500px;
+    
 }
 
-#pie div a, 
-#pie div a:visited, 
-#pie div a:active{  
+#pie > div > div{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+}
+
+#pie > div > div.pie_left{
+    justify-content: flex-start;
+}
+
+#pie > div > div.pie_right{
+    justify-content: flex-end;
+    
+}
+
+#pie div div a, 
+#pie div div a:visited, 
+#pie div div a:active{  
     color: grey;
     padding-left: 10px;
     text-decoration: none;
+    font-size: 15px;
 }
 
 
+
+.homepage_privacy{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage_privacy > *{
+    width: 80%;
+}
 
 
 
@@ -361,6 +386,10 @@ width: 100%;
     justify-content: center;
     align-items: center;
     padding: 20px 20px;
+}
+
+.planta_entregada{
+    background-color: rgba(255, 0, 0, 0.438);
 }
 
 #container_plants .card .container_image{
@@ -441,6 +470,7 @@ button.enlace{
 .main_body .container_body{
     margin: 0 auto;
     width: 1500px;
+    min-height: 768px;
     display: flex;
     justify-content: center;
 }
@@ -636,7 +666,7 @@ button.enlace{
 .lista_acciones{
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     gap: 5px;
 }
 
@@ -692,14 +722,13 @@ button.enlace{
     flex-direction: column ;
     justify-content: center;
     height: 80%;
-    /* border: 1px dotted grey; */
     padding: 10px;
 }
 
 .plant_container_transaction_steps .transaction_action .transaction_action_header{ 
     display: flex;
     flex-direction: row ;
-    justify-content: start;
+    justify-content: flex-start;
     height: 30%;
 }
 
@@ -712,11 +741,21 @@ button.enlace{
 .plant_container_transaction_steps .transaction_action .transaction_action_body a{
     display: flex;
     flex-direction: row ;
-    justify-content: start;
+    justify-content: flex-start;
     height: 100%;
 }
 
 .plant_container_transaction_steps .transaction_action .transaction_action_body a img{
-
     height: 100%;
 }
+
+.homepage_pages_header{
+    text-align: center;
+    margin: 50px 0;
+}
+
+#form_login_plantapp_con_privacy h3{
+    margin: 100px;
+    text-align: center;
+}
+
