@@ -631,7 +631,7 @@ button.enlace{
     flex-direction: column;
     justify-content: center;
     margin: 50px 0 200px;
-    background-color: red;
+    /* background-color: red; */
 }
 
 #form_login_plantapp_page_title{
